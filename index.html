@@ -13,20 +13,23 @@
 <meta name="author" content="Hirahara">
 <meta name="keywords" content="Claude Code, SubAgents, Skills, Python, ポートフォリオ, AI開発, 農業, 自動化">
 
-<!-- OGP -->
+<!-- OGP — [C-3] hero2.svg に変更 -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hirahara — Claude Code Portfolio">
 <meta property="og:description" content="AIを道具にする人間が、次の現場をつくる。Claude Code で構築した SubAgents・Skills・自動化スクリプトの実績まとめ。">
 <meta property="og:url" content="https://draone1975-max.github.io/portfolio-haishin/">
 <meta property="og:site_name" content="Hirahara Portfolio">
-<meta property="og:image" content="https://draone1975-max.github.io/portfolio-haishin/image/photo1.jpg">
+<meta property="og:image" content="https://draone1975-max.github.io/portfolio-haishin/image/hero2.svg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Hirahara — Claude Code Portfolio">
 <meta name="twitter:description" content="AIを道具にする人間が、次の現場をつくる。">
-<meta name="twitter:image" content="https://draone1975-max.github.io/portfolio-haishin/image/photo1.jpg">
+<meta name="twitter:image" content="https://draone1975-max.github.io/portfolio-haishin/image/hero2.svg">
+<!-- [S-4] twitter:creator 追加 -->
+<meta name="twitter:creator" content="@draone1975">
 
-<!-- Favicon -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+<!-- [S-1] Favicon — PNG 互換の絵文字 SVG -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+<link rel="apple-touch-icon" sizes="180x180" href="image/hero2.svg">
 
 <!-- JSON-LD -->
 <script type="application/ld+json">
@@ -42,165 +45,191 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  /* ── base colors (design-prompt.yaml 準拠) ── */
-  --bg:     #0d1117; --bg2: #161b22; --bg3: #21262d;
-  --blue:   #58a6ff; --green: #3fb950; --purple: #bc8cff;
-  --orange: #f78166; --text: #e6edf3; --muted: #8b949e;
-  --faint:  #484f58; --border: #30363d;
-  /* ── Agent3 追加変数 ── */
-  --text-dim: #484f58; --border-hover: #58a6ff;
-  --r: 8px; --r-btn: 6px; --r-badge: 4px; --r-pill: 99px;
-  --transition: all .15s ease;
-  --glow: 0 0 0 3px rgba(88,166,255,.1);
+  /* ── base colors (design-prompt.yaml 完全準拠) ── */
+  --bg:           #0d1117;
+  --bg2:          #161b22;
+  --bg3:          #21262d;
+  --blue:         #58a6ff;
+  --green:        #3fb950;
+  --purple:       #bc8cff;
+  --orange:       #f78166;
+  --text:         #e6edf3;
+  --muted:        #8b949e;
+  --text-dim:     #484f58;
+  --border:       #30363d;
+  --border-hover: #58a6ff;
+  /* ── radius ── */
+  --r:      8px;
+  --r-btn:  6px;   /* [H-4] YAML: button: 6px */
+  --r-badge:4px;
+  --r-pill: 99px;
+  /* ── effects ── */
+  --transition:  all .15s ease;
+  --glow:        0 0 0 3px rgba(88,166,255,.1);
   --shadow-card: 0 1px 3px rgba(0,0,0,.3);
+  /* ── typography ── */
   --font: 'Inter','Segoe UI',system-ui,sans-serif;
   --mono: 'JetBrains Mono','Cascadia Code',monospace;
-  --fs-hero: clamp(2.4rem,7vw,4.8rem);
-  --fs-h2: clamp(1.6rem,3.5vw,2.4rem);
-  --fs-body: .9rem; --fs-sm: .78rem; --fs-code: .82rem;
+  /* [D-1] YAML: hero: clamp(2.8rem, 8vw, 5.5rem) */
+  --fs-hero: clamp(2.8rem, 8vw, 5.5rem);
+  --fs-h2:   clamp(1.6rem, 3.5vw, 2.4rem);
+  --fs-h3:   1.1rem;
+  --fs-body: 0.9rem;
+  --fs-sm:   0.78rem;
+  --fs-code: 0.82rem;
 }
-body { font-family: 'Inter','Segoe UI',system-ui,sans-serif; background: var(--bg); color: var(--text); font-size: .9rem; line-height: 1.7; overflow-x: hidden; }
+/* [H-2] font-family を変数で統一 */
+body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: var(--fs-body); line-height: 1.7; overflow-x: hidden; }
 a { text-decoration: none; color: inherit; }
 img { display: block; max-width: 100%; }
 
-/* nav */
+/* ── nav ── */
+/* [H-1] 修正: <nav class="nav-links"> → <div class="nav-links"> に合わせてスタイルのみ nav 外に切り出し */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: .9rem 2rem; background: rgba(13,17,23,.88); border-bottom: 1px solid var(--border); }
 @supports (backdrop-filter: blur(12px)) { nav { backdrop-filter: blur(12px); background: rgba(13,17,23,.75); } }
 .nav-logo { font-family: var(--mono); font-size: .9rem; }
 .nav-logo .hl { color: var(--blue); }
-.nav-links { display: flex; gap: 1.75rem; font-size: .85rem; color: var(--muted); }
-.nav-links a:hover { color: var(--text); transition: color .15s; }
-.nav-btn { font-size: .82rem; font-weight: 600; padding: .4rem 1rem; background: var(--blue); color: var(--bg); border-radius: var(--r); transition: opacity .15s; }
+.nav-links { display: flex; gap: 1.75rem; font-size: var(--fs-sm); color: var(--muted); }
+.nav-links a { transition: var(--transition); }
+.nav-links a:hover { color: var(--text); }
+.nav-btn { font-size: var(--fs-sm); font-weight: 600; padding: .4rem 1rem; background: var(--blue); color: var(--bg); border-radius: var(--r-btn); transition: var(--transition); }
 .nav-btn:hover { opacity: .85; }
 
-/* hero — Agent1 hero2.svg を背景に使用 */
+/* ── hero — [D-2][D-3][D-5] hero2.svg を直接表示、YAML"centered"寄りの2カラム ── */
 .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 2rem; padding: 7rem 4rem 3rem; position: relative; overflow: hidden; background: var(--bg); }
-.hero::before { content: ''; position: absolute; inset: 0; background: url('image/hero2.svg') right center / contain no-repeat; opacity: .18; pointer-events: none; z-index: 0; }
-.hero::after  { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--bg) 30%, transparent 70%); pointer-events: none; z-index: 0; }
+.hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 30% 50%, rgba(88,166,255,.06) 0%, transparent 55%); pointer-events: none; z-index: 0; }
 .hero > * { position: relative; z-index: 1; }
 .hero-content { text-align: left; }
 .hero-image { display: flex; align-items: center; justify-content: center; }
-.hero-image img { width: 100%; max-width: 560px; border-radius: 24px; filter: drop-shadow(0 8px 32px rgba(167,139,250,.25)); }
-.hero-badge { display: inline-flex; align-items: center; gap: .5rem; border: 1px solid var(--border); background: var(--bg2); border-radius: 99px; padding: .28rem .9rem; font-size: .75rem; font-family: var(--mono); color: var(--muted); letter-spacing: .04em; margin-bottom: 2rem; }
+.hero-image img { width: 100%; max-width: 520px; filter: drop-shadow(0 8px 40px rgba(167,139,250,.3)); }
+.hero-badge { display: inline-flex; align-items: center; gap: .5rem; border: 1px solid var(--border); background: var(--bg2); border-radius: var(--r-pill); padding: .28rem .9rem; font-size: var(--fs-sm); font-family: var(--mono); color: var(--muted); letter-spacing: .04em; margin-bottom: 1.5rem; }
 .live { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-.hero h1 { font-size: clamp(2.4rem, 7vw, 4.8rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.05; margin-bottom: .75rem; }
+/* [D-1][H-3] YAML 準拠のフォントサイズ変数を使用 */
+.hero h1 { font-size: var(--fs-hero); font-weight: 700; letter-spacing: -.03em; line-height: 1.05; margin-bottom: .75rem; }
 .hero h1 .name { color: var(--text); }
-.hero h1 .catch { display: block; color: var(--blue); font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-weight: 500; letter-spacing: -.01em; margin-top: .4rem; }
-.hero-desc { font-size: .92rem; color: var(--muted); max-width: 480px; margin: .75rem auto 2.5rem; }
-.hero-actions { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
-.btn { display: inline-flex; align-items: center; gap: .4rem; font-size: .85rem; font-weight: 600; padding: .55rem 1.4rem; border-radius: var(--r); transition: all .15s; border: none; cursor: pointer; }
-.btn-solid { background: var(--blue); color: var(--bg); }
-.btn-solid:hover { opacity: .88; transform: translateY(-1px); box-shadow: 0 0 0 3px rgba(88,166,255,.15); }
-.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
-.btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+.hero h1 .catch { display: block; color: var(--blue); font-size: clamp(1.2rem, 2.8vw, 1.8rem); font-weight: 500; letter-spacing: -.01em; margin-top: .4rem; }
+/* [H-5] margin auto を除去 */
+.hero-desc { font-size: .92rem; color: var(--muted); max-width: 480px; margin: .75rem 0 2.5rem; }
+/* [D-4] hero-actions を left 揃えに統一 */
+.hero-actions { display: flex; gap: .75rem; justify-content: flex-start; flex-wrap: wrap; }
 
-/* ribbon — Agent3 修正: モバイルで repeat(2,1fr) */
+/* ── buttons — [H-4] --r-btn 変数を使用 ── */
+.btn { display: inline-flex; align-items: center; gap: .4rem; font-size: var(--fs-sm); font-weight: 600; padding: .55rem 1.4rem; border-radius: var(--r-btn); transition: var(--transition); border: none; cursor: pointer; }
+.btn-solid { background: var(--blue); color: var(--bg); }
+.btn-solid:hover { opacity: .88; transform: translateY(-2px); box-shadow: var(--glow); }
+.btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--border-hover); color: var(--blue); transform: translateY(-2px); }
+
+/* ── ribbon ── */
 .ribbon { display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg2); }
 .rib-item { padding: 1.5rem .75rem; text-align: center; border-right: 1px solid var(--border); }
 .rib-item:last-child { border-right: none; }
 .rib-num { font-size: 1.8rem; font-weight: 700; color: var(--blue); font-family: var(--mono); }
-.rib-label { font-size: .7rem; color: var(--muted); margin-top: .15rem; }
+.rib-label { font-size: var(--fs-sm); color: var(--muted); margin-top: .15rem; }
 
-/* section — Agent2 bg-pattern.svg を背景に使用 */
-.wrap { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; position: relative; }
-.wrap::before { content: ''; position: absolute; inset: 0; background: url('image/bg-pattern.svg') 0 0 / 300px 300px repeat; opacity: .06; pointer-events: none; z-index: 0; }
-.wrap > * { position: relative; z-index: 1; }
-.sec-num { font-family: var(--mono); font-size: .72rem; color: var(--muted); letter-spacing: .1em; margin-bottom: .4rem; }
-.sec-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; letter-spacing: -.02em; margin-bottom: .5rem; }
+/* ── section — [H-6] isolation で z-index を閉じる ── */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; position: relative; isolation: isolate; }
+.wrap::before { content: ''; position: absolute; inset: 0; background: url('image/bg-pattern.svg') 0 0 / 300px 300px repeat; opacity: .06; pointer-events: none; z-index: -1; }
+.sec-num { font-family: var(--mono); font-size: var(--fs-sm); color: var(--muted); letter-spacing: .1em; margin-bottom: .4rem; }
+.sec-title { font-size: var(--fs-h2); font-weight: 700; letter-spacing: -.02em; margin-bottom: .5rem; }
 .sec-desc { color: var(--muted); margin-bottom: 2.5rem; font-size: .88rem; }
 hr.div { border: none; border-top: 1px solid var(--border); }
 
-/* about */
+/* ── about ── */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
-.about-text p { font-size: .9rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.8; }
+.about-text p { font-size: var(--fs-body); color: var(--muted); margin-bottom: 1rem; line-height: 1.8; }
 .about-text p strong { color: var(--text); }
 .stack-list { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.5rem; }
-.stack-tag { font-family: var(--mono); font-size: .75rem; padding: .3rem .7rem; border-radius: var(--r); border: 1px solid var(--border); color: var(--blue); background: rgba(88,166,255,.06); }
+.stack-tag { font-family: var(--mono); font-size: var(--fs-sm); padding: .3rem .7rem; border-radius: var(--r); border: 1px solid var(--border); color: var(--blue); background: rgba(88,166,255,.06); }
 .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
-.as-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r); padding: 1.25rem; text-align: center; }
+.as-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r); padding: 1.25rem; text-align: center; box-shadow: var(--shadow-card); }
 .as-num { font-size: 2rem; font-weight: 700; color: var(--blue); font-family: var(--mono); }
-.as-label { font-size: .75rem; color: var(--muted); margin-top: .2rem; }
+.as-label { font-size: var(--fs-sm); color: var(--muted); margin-top: .2rem; }
 
-/* terminal */
+/* ── terminal ── */
 .terminal { border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: var(--bg2); }
 .term-bar { display: flex; align-items: center; gap: .6rem; padding: .75rem 1rem; border-bottom: 1px solid var(--border); background: var(--bg3); }
 .term-dots { display: flex; gap: .35rem; }
 .term-dots span { width: 11px; height: 11px; border-radius: 50%; }
-.term-cmd { font-family: var(--mono); font-size: .78rem; color: var(--muted); margin-left: .5rem; }
+.term-cmd { font-family: var(--mono); font-size: var(--fs-code); color: var(--muted); margin-left: .5rem; }
 .term-cmd .hl { color: var(--green); }
 .pipeline-grid { display: grid; grid-template-columns: 1fr 32px 1fr 32px 1fr; align-items: center; padding: 2rem 1.5rem; gap: .25rem; }
-.p-node { border: 1px solid var(--border); border-radius: var(--r); padding: 1.25rem; text-align: center; background: var(--bg3); transition: border-color .15s; }
-.p-node:hover { border-color: var(--blue); }
+.p-node { border: 1px solid var(--border); border-radius: var(--r); padding: 1.25rem; text-align: center; background: var(--bg3); transition: var(--transition); }
+.p-node:hover { border-color: var(--border-hover); }
 .p-ico { font-size: 1.75rem; margin-bottom: .6rem; }
-.p-name { font-weight: 700; font-size: .9rem; margin-bottom: .2rem; font-family: var(--mono); color: var(--blue); }
-.p-role { font-size: .75rem; color: var(--muted); }
+.p-name { font-weight: 700; font-size: var(--fs-body); margin-bottom: .2rem; font-family: var(--mono); color: var(--blue); }
+.p-role { font-size: var(--fs-sm); color: var(--muted); }
 .p-arr { text-align: center; color: var(--border); font-size: 1.1rem; }
-.term-result { display: flex; align-items: center; gap: .75rem; margin: 0 1.5rem 1.5rem; padding: .75rem 1rem; border: 1px solid var(--border); border-radius: var(--r); background: var(--bg3); font-size: .82rem; }
-.badge { display: inline-block; font-family: var(--mono); font-size: .7rem; font-weight: 600; padding: .18rem .6rem; border-radius: 99px; letter-spacing: .04em; }
+.term-result { display: flex; align-items: center; gap: .75rem; margin: 0 1.5rem 1.5rem; padding: .75rem 1rem; border: 1px solid var(--border); border-radius: var(--r); background: var(--bg3); font-size: var(--fs-code); }
+.badge { display: inline-block; font-family: var(--mono); font-size: var(--fs-sm); font-weight: 600; padding: .18rem .6rem; border-radius: var(--r-pill); letter-spacing: .04em; }
 .badge-green  { background: rgba(63,185,80,.15);  color: var(--green);  border: 1px solid rgba(63,185,80,.3); }
 .badge-blue   { background: rgba(88,166,255,.15); color: var(--blue);   border: 1px solid rgba(88,166,255,.3); }
 .badge-purple { background: rgba(188,140,255,.15);color: var(--purple); border: 1px solid rgba(188,140,255,.3); }
 .badge-orange { background: rgba(247,129,102,.15);color: var(--orange); border: 1px solid rgba(247,129,102,.3); }
-.result-text { color: var(--muted); font-size: .8rem; }
+.result-text { color: var(--muted); font-size: var(--fs-sm); }
 
-/* agents */
+/* ── agents ── */
 .agent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
-.a-card { border: 1px solid var(--border); border-radius: var(--r); padding: 1.25rem 1.5rem; background: var(--bg2); transition: border-color .15s, transform .15s; }
-.a-card:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 0 0 3px rgba(88,166,255,.07); }
+.a-card { border: 1px solid var(--border); border-radius: var(--r); padding: 1.25rem 1.5rem; background: var(--bg2); transition: var(--transition); box-shadow: var(--shadow-card); }
+.a-card:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: var(--glow); }
 .a-card-top { display: flex; align-items: center; gap: .75rem; margin-bottom: .5rem; }
 .a-ico { font-size: 1.4rem; }
 .a-name { font-family: var(--mono); font-size: .88rem; font-weight: 500; color: var(--blue); }
-.a-desc { font-size: .8rem; color: var(--muted); line-height: 1.6; }
+.a-desc { font-size: var(--fs-sm); color: var(--muted); line-height: 1.6; }
 
-/* skills — Agent3 修正: overflow-x auto ラッパー */
+/* ── skills ── */
 .skill-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .skill-table { width: 100%; border-collapse: collapse; min-width: 500px; }
 .skill-table tr { border-bottom: 1px solid var(--border); }
 .skill-table tr:last-child { border-bottom: none; }
 .skill-table tr:hover td { background: var(--bg2); }
+.skill-table th { padding: .75rem 1rem; text-align: left; color: var(--muted); font-size: var(--fs-sm); font-weight: 500; letter-spacing: .05em; border-bottom: 1px solid var(--border); }
+.skill-table th:last-child { text-align: right; }
 .skill-table td { padding: .75rem 1rem; vertical-align: middle; }
-.skill-table .cmd { font-family: var(--mono); font-size: .82rem; color: var(--blue); white-space: nowrap; }
-.skill-table .desc { font-size: .8rem; color: var(--muted); }
+.skill-table .cmd { font-family: var(--mono); font-size: var(--fs-code); color: var(--blue); white-space: nowrap; }
+.skill-table .desc { font-size: var(--fs-sm); color: var(--muted); }
 .skill-table .tag-cell { text-align: right; white-space: nowrap; }
 
-/* projects */
+/* ── projects — [C-1][C-4] カード説明の改善 ── */
 .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px,100%), 1fr)); gap: 1.25rem; }
-.proj-card { border: 1px solid var(--border); border-radius: var(--r); background: var(--bg2); overflow: hidden; display: flex; flex-direction: column; transition: border-color .15s, transform .15s; }
-.proj-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+.proj-card { border: 1px solid var(--border); border-radius: var(--r); background: var(--bg2); overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); box-shadow: var(--shadow-card); }
+.proj-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
 .proj-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3rem; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
 .proj-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: .85; transition: opacity .2s; }
 .proj-card:hover .proj-thumb img { opacity: 1; }
 .proj-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
 .proj-tags { display: flex; gap: .35rem; flex-wrap: wrap; margin-bottom: .75rem; }
-.tag { font-size: .68rem; padding: .15rem .55rem; border-radius: 99px; border: 1px solid var(--border); color: var(--muted); }
+.tag { font-size: .68rem; padding: .15rem .55rem; border-radius: var(--r-pill); border: 1px solid var(--border); color: var(--muted); }
 .proj-title { font-weight: 700; font-size: .95rem; margin-bottom: .4rem; }
-.proj-desc { font-size: .8rem; color: var(--muted); flex: 1; margin-bottom: 1rem; line-height: 1.65; }
-.proj-link { display: inline-flex; align-items: center; gap: .3rem; font-size: .8rem; color: var(--blue); font-family: var(--mono); transition: opacity .15s; }
+.proj-desc { font-size: var(--fs-sm); color: var(--muted); flex: 1; margin-bottom: 1rem; line-height: 1.65; }
+.proj-link { display: inline-flex; align-items: center; gap: .3rem; font-size: var(--fs-sm); color: var(--blue); font-family: var(--mono); transition: var(--transition); }
 .proj-link:hover { opacity: .75; text-decoration: underline; }
 
-/* contact */
+/* ── contact ── */
 .contact-box { border: 1px solid var(--border); border-radius: var(--r); background: var(--bg2); padding: 2.5rem; text-align: center; }
-.contact-box p { color: var(--muted); font-size: .9rem; margin-bottom: 1.5rem; }
+.contact-box p { color: var(--muted); font-size: var(--fs-body); margin-bottom: 1.5rem; }
 .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-/* footer */
+/* ── footer ── */
 footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2.5rem 2rem; text-align: center; }
 .foot-logo { font-family: var(--mono); font-size: .95rem; color: var(--text); margin-bottom: .35rem; }
 .foot-logo .hl { color: var(--blue); }
-.foot-links { display: flex; justify-content: center; gap: 1.5rem; font-size: .8rem; color: var(--muted); margin: .75rem 0; }
+.foot-links { display: flex; justify-content: center; gap: 1.5rem; font-size: var(--fs-sm); color: var(--muted); margin: .75rem 0; }
 .foot-links a:hover { color: var(--blue); }
-.foot-copy { font-size: .72rem; color: var(--faint); }
+.foot-copy { font-size: var(--fs-sm); color: var(--text-dim); }
 
-/* responsive — Agent3 修正まとめ */
+/* ── responsive ── */
 @media (max-width: 720px) {
   nav { padding: .9rem 1rem; }
   .nav-links { display: none; }
   .hero { grid-template-columns: 1fr; text-align: center; padding: 7rem 1.5rem 3rem; }
   .hero-content { order: 1; }
   .hero-image { order: 0; }
-  .hero-image img { max-width: 320px; }
+  .hero-image img { max-width: 300px; }
+  /* [D-4] モバイルはセンタリングに戻す */
   .hero-actions { justify-content: center; }
+  .hero-desc { margin: .75rem auto 2.5rem; max-width: 100%; }
   .ribbon { grid-template-columns: repeat(2, 1fr); }
   .rib-item { border-right: none; border-bottom: 1px solid var(--border); }
   .rib-item:nth-child(odd) { border-right: 1px solid var(--border); }
@@ -214,21 +243,21 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
 </head>
 <body>
 
-<!-- NAV -->
+<!-- NAV — [H-1] 内側の nav を div に修正 -->
 <nav>
   <div class="nav-logo"><span class="hl">&lt;</span>Hirahara<span class="hl">/&gt;</span></div>
-  <nav class="nav-links" aria-label="メインナビゲーション">
+  <div class="nav-links" role="navigation" aria-label="メインナビゲーション">
     <a href="#about">About</a>
     <a href="#pipeline">Pipeline</a>
     <a href="#agents">Agents</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Works</a>
     <a href="#contact">Contact</a>
-  </nav>
+  </div>
   <a class="nav-btn" href="https://github.com/draone1975-max" target="_blank" rel="noopener noreferrer" aria-label="GitHubを開く">GitHub <span aria-hidden="true">↗</span></a>
 </nav>
 
-<!-- HERO -->
+<!-- HERO — [D-2] hero2.svg を直接表示 -->
 <section class="hero">
   <div class="hero-content">
     <div class="hero-badge">
@@ -245,12 +274,13 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
       <a class="btn btn-ghost" href="#projects">実績を見る →</a>
     </div>
   </div>
+  <!-- [D-2] hero.svg → hero2.svg に差し替え -->
   <div class="hero-image">
-    <img src="image/hero.svg" alt="Kawaii AI開発者キャラクター" width="560" height="560">
+    <img src="image/hero2.svg" alt="kawaii スタイルの AI 開発者キャラクター" width="560" height="560">
   </div>
 </section>
 
-<!-- RIBBON — Agent2: Automated Workflows 追加 -->
+<!-- RIBBON -->
 <div class="ribbon" role="list" aria-label="実績数値">
   <div class="rib-item" role="listitem"><div class="rib-num">7</div><div class="rib-label">SubAgents</div></div>
   <div class="rib-item" role="listitem"><div class="rib-num">11</div><div class="rib-label">Custom Skills</div></div>
@@ -260,7 +290,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
   <div class="rib-item" role="listitem"><div class="rib-num">2</div><div class="rib-label">Repos</div></div>
 </div>
 
-<!-- ABOUT — Agent1・2: 新規追加 -->
+<!-- ABOUT -->
 <section class="wrap" id="about">
   <p class="sec-num">// 00 — ABOUT ME</p>
   <h2 class="sec-title">About</h2>
@@ -274,7 +304,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
         <span class="stack-tag">Python</span>
         <span class="stack-tag">Claude Code</span>
         <span class="stack-tag">SubAgents</span>
-        <span class="stack-tag">GitHub Actions</span>
+        <span class="stack-tag">GitHub Pages</span>
         <span class="stack-tag">HTML / CSS</span>
         <span class="stack-tag">git</span>
       </div>
@@ -366,7 +396,13 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
   <p class="sec-desc">.claude/commands/ に配置。/コマンド名 または自然文で自動発動</p>
   <div class="skill-table-wrap">
     <table class="skill-table" aria-label="カスタムスキル一覧">
-      <thead><tr><th scope="col" style="padding:.75rem 1rem;text-align:left;color:var(--muted);font-size:.75rem;font-weight:500;letter-spacing:.05em;border-bottom:1px solid var(--border)">コマンド</th><th scope="col" style="padding:.75rem 1rem;text-align:left;color:var(--muted);font-size:.75rem;font-weight:500;letter-spacing:.05em;border-bottom:1px solid var(--border)">説明</th><th scope="col" style="padding:.75rem 1rem;text-align:right;color:var(--muted);font-size:.75rem;font-weight:500;letter-spacing:.05em;border-bottom:1px solid var(--border)">カテゴリ</th></tr></thead>
+      <thead>
+        <tr>
+          <th scope="col">コマンド</th>
+          <th scope="col">説明</th>
+          <th scope="col">カテゴリ</th>
+        </tr>
+      </thead>
       <tbody>
         <tr><td class="cmd">/build-and-review</td><td class="desc">Analyzer→Builder→Reviewer の3段階パイプラインを順次実行</td><td class="tag-cell"><span class="badge badge-purple">Pipeline</span></td></tr>
         <tr><td class="cmd">/file-summarizer</td><td class="desc">ファイル読込→要約→改善提案の3段階処理（引数で文字数指定可）</td><td class="tag-cell"><span class="badge badge-purple">Pipeline</span></td></tr>
@@ -386,7 +422,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
 
 <hr class="div">
 
-<!-- PROJECTS -->
+<!-- PROJECTS — [C-1][C-4] 説明文を具体的に改善 -->
 <section class="wrap" id="projects">
   <p class="sec-num">// 04 — FEATURED WORKS</p>
   <h2 class="sec-title">Featured Projects</h2>
@@ -396,8 +432,8 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
       <div class="proj-thumb" style="background:linear-gradient(135deg,#0d1117,#161b40)">🤖</div>
       <div class="proj-body">
         <div class="proj-tags"><span class="tag">SubAgents</span><span class="tag">Skills</span><span class="tag">Pipeline</span><span class="tag">Python</span></div>
-        <div class="proj-title">claude-test</div>
-        <p class="proj-desc">7 SubAgent・11 Skills を整備した Claude Code 学習リポジトリ。build-and-review パイプラインで実際のコード改善を実証。claude-code-guide 規約に完全準拠。</p>
+        <div class="proj-title">claude-test — Claude Code 学習リポジトリ</div>
+        <p class="proj-desc">7 SubAgent・11 Skills を整備した Claude Code の実験場。build-and-review パイプラインで calculator.py を実際に改善し、claude-code-guide 規約（name: 除去・model: 短縮名）に完全準拠。</p>
         <a class="proj-link" href="https://github.com/draone1975-max/claude-test" target="_blank" rel="noopener noreferrer">↗ github.com/draone1975-max/claude-test</a>
       </div>
     </div>
@@ -405,31 +441,32 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
       <div class="proj-thumb" style="background:linear-gradient(135deg,#0d1117,#0d2314)">📁</div>
       <div class="proj-body">
         <div class="proj-tags"><span class="tag">Python</span><span class="tag">CLI</span><span class="tag">Automation</span><span class="tag">6 Features</span></div>
-        <div class="proj-title">file_organizer.py</div>
-        <p class="proj-desc">84ファイルを拡張子別に自動仕分け。undo・重複リネーム・ログ出力・再帰処理・カスタムマッピング・サマリー表示の6機能を段階的に実装。</p>
+        <div class="proj-title">file_organizer.py — ファイル整理自動化</div>
+        <p class="proj-desc">ドキュメントフォルダの 84 ファイルを拡張子別サブフォルダへ自動仕分け。undo・重複リネーム・ログ出力・再帰処理・カスタムマッピング・サマリー表示の 6 機能を段階的に実装。</p>
         <a class="proj-link" href="https://github.com/draone1975-max/claude-source" target="_blank" rel="noopener noreferrer">↗ github.com/draone1975-max/claude-source</a>
       </div>
     </div>
+    <!-- [C-1][C-2] 実績画像カードのタイトル・説明を具体的に改善 -->
     <div class="proj-card">
       <div class="proj-thumb">
-        <img src="image/photo1.jpg" alt="実績スクリーンショット1" width="400" height="300" loading="lazy" onerror="this.style.display='none'">
+        <img src="image/photo1.jpg" alt="Claude Code SubAgents 実行画面" width="400" height="300" loading="lazy" onerror="this.style.display='none'">
         <span style="font-size:2.5rem;position:absolute" aria-hidden="true">📸</span>
       </div>
       <div class="proj-body">
-        <div class="proj-tags"><span class="tag">Screenshot</span></div>
-        <div class="proj-title">実績画像 1</div>
-        <p class="proj-desc">Claude Code セッションの実行画面キャプチャ</p>
+        <div class="proj-tags"><span class="tag">Screenshot</span><span class="tag">Claude Code</span></div>
+        <div class="proj-title">build-and-review 実行キャプチャ</div>
+        <p class="proj-desc">@analyzer→@builder→@reviewer の3段階パイプラインが実際に動作し、calculator.py の問題点を自動検出・改善・検証した際のセッション画面。</p>
       </div>
     </div>
     <div class="proj-card">
       <div class="proj-thumb">
-        <img src="image/photo2.jpg" alt="実績スクリーンショット2" width="400" height="300" loading="lazy" onerror="this.style.display='none'">
+        <img src="image/photo2.jpg" alt="file_organizer.py 実行結果画面" width="400" height="300" loading="lazy" onerror="this.style.display='none'">
         <span style="font-size:2.5rem;position:absolute" aria-hidden="true">📸</span>
       </div>
       <div class="proj-body">
-        <div class="proj-tags"><span class="tag">Screenshot</span></div>
-        <div class="proj-title">実績画像 2</div>
-        <p class="proj-desc">Claude Code セッションの実行画面キャプチャ</p>
+        <div class="proj-tags"><span class="tag">Screenshot</span><span class="tag">Python</span></div>
+        <div class="proj-title">file_organizer.py 実行結果</div>
+        <p class="proj-desc">file_organizer.py を実行し、ドキュメントフォルダの 84 ファイルをカテゴリ別に自動整理したドライラン結果。カテゴリ別件数・容量サマリーを表示。</p>
       </div>
     </div>
   </div>
@@ -437,7 +474,7 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
 
 <hr class="div">
 
-<!-- CONTACT — Agent1: 新規追加 -->
+<!-- CONTACT -->
 <section class="wrap" id="contact">
   <p class="sec-num">// 05 — CONTACT</p>
   <h2 class="sec-title">Contact</h2>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://draone1975-max.github.io/portfolio-haishin/sitemap.xml
