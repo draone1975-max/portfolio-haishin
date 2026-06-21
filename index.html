@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hirahara — Claude Code Portfolio</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #12121a;
+    --bg3: #1a1a26;
+    --accent: #7c6af7;
+    --accent2: #a78bfa;
+    --accent3: #38bdf8;
+    --text: #e8e8f0;
+    --muted: #8888aa;
+    --border: #2a2a3e;
+    --card: #16162080;
+    --green: #4ade80;
+    --orange: #fb923c;
+    --pink: #f472b6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── hero ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, #7c6af722 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, #38bdf812 0%, transparent 50%);
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    border-radius: 99px;
+    padding: .35rem 1rem;
+    font-size: .8rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    letter-spacing: .05em;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .hero h1 {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #fff 30%, var(--accent2) 70%, var(--accent3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn {
+    padding: .7rem 1.8rem;
+    border-radius: 8px;
+    font-size: .95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all .2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent2); }
+
+  /* ── stats bar ── */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    flex-wrap: wrap;
+  }
+  .stat {
+    flex: 1;
+    min-width: 140px;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num { font-size: 2rem; font-weight: 700; color: var(--accent2); }
+  .stat-label { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+
+  /* ── section ── */
+  section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-size: .75rem;
+    letter-spacing: .1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: .75rem;
+  }
+  h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 600; margin-bottom: .75rem; }
+  .subtitle { color: var(--muted); margin-bottom: 3rem; }
+
+  /* ── pipeline card ── */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .pipe-step {
+    flex: 1;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+  }
+  .pipe-step + .pipe-step::before {
+    content: '→';
+    position: absolute;
+    left: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 1.2rem;
+  }
+  .pipe-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto .75rem;
+    font-size: 1.5rem;
+  }
+  .pipe-name { font-size: .95rem; font-weight: 600; }
+  .pipe-desc { font-size: .78rem; color: var(--muted); margin-top: .25rem; }
+
+  /* ── agent grid ── */
+  .agent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .agent-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    transition: border-color .2s, transform .2s;
+    backdrop-filter: blur(8px);
+  }
+  .agent-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .agent-header { display: flex; align-items: center; gap: .75rem; margin-bottom: .6rem; }
+  .agent-icon { font-size: 1.4rem; }
+  .agent-name { font-size: .95rem; font-weight: 600; }
+  .agent-role {
+    display: inline-block;
+    font-size: .7rem;
+    padding: .15rem .6rem;
+    border-radius: 99px;
+    font-weight: 500;
+    margin-bottom: .6rem;
+  }
+  .role-agent { background: #7c6af722; color: var(--accent2); border: 1px solid #7c6af744; }
+  .role-skill { background: #38bdf822; color: var(--accent3); border: 1px solid #38bdf844; }
+  .agent-desc { font-size: .82rem; color: var(--muted); }
+
+  /* ── project card ── */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color .2s, transform .2s;
+  }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .project-thumb {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, var(--bg2));
+  }
+  .project-body { padding: 1.25rem 1.5rem 1.5rem; }
+  .project-title { font-size: 1.05rem; font-weight: 600; margin-bottom: .4rem; }
+  .project-desc { font-size: .83rem; color: var(--muted); margin-bottom: 1rem; }
+  .tags { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .tag {
+    font-size: .72rem;
+    padding: .2rem .6rem;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .82rem;
+    color: var(--accent2);
+    text-decoration: none;
+    margin-top: 1rem;
+  }
+  .project-link:hover { text-decoration: underline; }
+
+  /* ── skills table ── */
+  .skill-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .88rem;
+  }
+  .skill-table th {
+    text-align: left;
+    padding: .75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-weight: 500;
+    font-size: .78rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+  .skill-table td {
+    padding: .85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .skill-table tr:last-child td { border-bottom: none; }
+  .skill-table tr:hover td { background: var(--bg2); }
+  .cmd { font-family: monospace; color: var(--accent3); font-size: .85rem; }
+
+  /* ── footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: .85rem;
+    background: var(--bg2);
+  }
+  footer a { color: var(--accent2); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── divider ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Claude Code Learning Portfolio
+  </div>
+  <h1>Hirahara<br>Claude Code Works</h1>
+  <p>Claude Code を使って構築した SubAgents・Skills・自動化スクリプトの実績まとめ</p>
+  <div class="hero-btns">
+    <a class="btn btn-primary" href="https://github.com/draone1975-max/claude-test" target="_blank">GitHub を見る</a>
+    <a class="btn btn-ghost" href="#works">実績を見る</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">7</div><div class="stat-label">SubAgents</div></div>
+  <div class="stat"><div class="stat-num">11</div><div class="stat-label">Custom Skills</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Pipeline Steps</div></div>
+  <div class="stat"><div class="stat-num">84</div><div class="stat-label">Files Organized</div></div>
+  <div class="stat"><div class="stat-num">2</div><div class="stat-label">GitHub Repos</div></div>
+</div>
+
+<!-- PIPELINE -->
+<section>
+  <span class="section-tag">Highlight</span>
+  <h2>build-and-review パイプライン</h2>
+  <p class="subtitle">3つの専門 SubAgent を順次連携させる実践的なワークフロー</p>
+
+  <div class="pipeline">
+    <div class="pipe-step">
+      <div class="pipe-icon" style="background:#7c6af722">🔍</div>
+      <div class="pipe-name">@analyzer</div>
+      <div class="pipe-desc">静的解析・問題点抽出</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-icon" style="background:#38bdf822">🔨</div>
+      <div class="pipe-name">@builder</div>
+      <div class="pipe-desc">改善コード自動生成</div>
+    </div>
+    <div class="pipe-step">
+      <div class="pipe-icon" style="background:#4ade8022">✅</div>
+      <div class="pipe-name">@reviewer</div>
+      <div class="pipe-desc">品質検証・最終判定</div>
+    </div>
+  </div>
+  <p style="font-size:.85rem;color:var(--muted)">
+    STEP 1 の分析レポートを STEP 2 に、STEP 2 の改善コードを STEP 3 に引き渡す完全自動パイプライン。<br>
+    最終判定は <strong style="color:var(--green)">APPROVED</strong> / <strong style="color:var(--orange)">NEEDS REVISION</strong> で出力される。
+  </p>
+</section>
+
+<hr class="divider">
+
+<!-- AGENTS & SKILLS -->
+<section id="works">
+  <span class="section-tag">SubAgents</span>
+  <h2>カスタム SubAgents</h2>
+  <p class="subtitle">.claude/agents/ に配置した専門エージェント一覧</p>
+
+  <div class="agent-grid">
+    <div class="agent-card">
+      <div class="agent-header"><span class="agent-icon">🔍</span><span class="agent-name">@analyzer</span></div>
+      <span class="agent-role role-agent">Agent</span>
+      <p class="agent-desc">Python ファイルを静的解析して構造・問題点を HIGH / MEDIUM / LOW で分類出力</p>
+    </div>
+    <div class="agent-card">
+      <div class="agent-header"><span class="agent-icon">🔨</span><span class="agent-name">@builder</span></div>
+      <span class="agent-role role-agent">Agent</span>
+      <p class="agent-desc">分析レポートをもとにコードを改善・リファクタリング（型ヒント・docstring 追加）</p>
+    </div>
+    <div class="agent-card">
+      <div class="agent-header"><span class="agent-icon">✅</span><span class="agent-name">@reviewer</span></div>
+      <span class="agent-role role-agent">Agent</span>
+      <p class="agent-desc">改善コードの品質・網羅性を検証して APPROVED / NEEDS REVISION を判定</p>
+    </div>
+    <div class="agent-card">
+      <div class="agent-header"><span class="agent-icon">📋</span><span class="agent-name">@code-reviewer</span></div>
+      <span class="agent-role role-agent">Agent</span>
+      <p class="agent-desc">コードレビューの専門エージェント。問題点・改善提案をリスト形式で報告</p>
+    </div>
+    <div class="agent-card">
+      <div class="agent-header"><span class="agent-icon">📝</span><span class="agent-name">@doc-writer</span></div>
+      <span class="agent-role role-agent">Agent</span>
+      <p class="agent-desc">Python コードを解析して Markdown ドキュメントを自動生成</p>
+    </div>
+    <div class="agent-card">
+      <div class="agent-header"><span class="agent-icon">🧪</span><span class="agent-name">@test-runner</span></div>
+      <span class="agent-role role-agent">Agent</span>
+      <p class="agent-desc">unittest を自動生成・実行。正常系・異常系・境界値のテストケースを作成</p>
+    </div>
+    <div class="agent-card">
+      <div class="agent-header"><span class="agent-icon">✍️</span><span class="agent-name">@seo-blog-writer</span></div>
+      <span class="agent-role role-agent">Agent</span>
+      <p class="agent-desc">SEO 構成で記事を執筆し、char-counter スキルで文字数を最適化</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SKILLS TABLE -->
+<section>
+  <span class="section-tag">Skills</span>
+  <h2>カスタム Skills（スラッシュコマンド）</h2>
+  <p class="subtitle">.claude/commands/ に配置した /コマンド一覧</p>
+
+  <table class="skill-table">
+    <thead>
+      <tr>
+        <th>コマンド</th>
+        <th>説明</th>
+        <th>特徴</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="cmd">/build-and-review</span></td>
+        <td>Analyzer→Builder→Reviewer の3段階パイプライン実行</td>
+        <td><span class="tag">Pipeline</span></td>
+      </tr>
+      <tr>
+        <td><span class="cmd">/file-summarizer</span></td>
+        <td>ファイルを要約＋改善提案まで出力する3段階処理</td>
+        <td><span class="tag">Pipeline</span></td>
+      </tr>
+      <tr>
+        <td><span class="cmd">/code-report</span></td>
+        <td>Python を静的解析して品質レポート（Markdown）を生成</td>
+        <td><span class="tag">Sub-resource</span></td>
+      </tr>
+      <tr>
+        <td><span class="cmd">/char-counter</span></td>
+        <td>改行±・スペース±の4パターンで文字数カウント</td>
+        <td><span class="tag">Utility</span></td>
+      </tr>
+      <tr>
+        <td><span class="cmd">/security-checks</span></td>
+        <td>OWASP Top 10 準拠のセキュリティ脆弱性チェック</td>
+        <td><span class="tag">Security</span></td>
+      </tr>
+      <tr>
+        <td><span class="cmd">/git-commit-writer</span></td>
+        <td>git diff を分析して Conventional Commits 形式のメッセージを生成</td>
+        <td><span class="tag">Git</span></td>
+      </tr>
+      <tr>
+        <td><span class="cmd">/readme-generator</span></td>
+        <td>プロジェクトを解析して README.md を自動生成</td>
+        <td><span class="tag">Docs</span></td>
+      </tr>
+      <tr>
+        <td><span class="cmd">/performance-guide</span></td>
+        <td>計算量・メモリ・I/O効率のボトルネックを診断</td>
+        <td><span class="tag">Analysis</span></td>
+      </tr>
+      <tr>
+        <td><span class="cmd">/database-tips</span></td>
+        <td>DBクエリ最適化・インデックス戦略をアドバイス</td>
+        <td><span class="tag">DB</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="divider">
+
+<!-- PROJECTS -->
+<section>
+  <span class="section-tag">Projects</span>
+  <h2>プロジェクト実績</h2>
+  <p class="subtitle">Claude Code セッション中に構築・コミットしたプロジェクト</p>
+
+  <div class="project-grid">
+    <div class="project-card">
+      <div class="project-thumb" style="background: linear-gradient(135deg,#1a1a3e,#2a1a4e)">🤖</div>
+      <div class="project-body">
+        <div class="project-title">claude-test — Claude Code 学習リポジトリ</div>
+        <p class="project-desc">SubAgents・Skills・Commands の実験場。7エージェント・11スキルを整備し、規約準拠（name: 除去・model: 短縮名）まで実施。</p>
+        <div class="tags">
+          <span class="tag">SubAgents</span>
+          <span class="tag">Skills</span>
+          <span class="tag">Pipeline</span>
+          <span class="tag">Python</span>
+        </div>
+        <a class="project-link" href="https://github.com/draone1975-max/claude-test" target="_blank">↗ GitHub で見る</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb" style="background: linear-gradient(135deg,#1a2e1a,#1a3a2a)">📁</div>
+      <div class="project-body">
+        <div class="project-title">file_organizer.py — ファイル整理自動化</div>
+        <p class="project-desc">84ファイルをカテゴリ別サブフォルダに自動仕分け。undo・重複リネーム・ログ出力・再帰処理・カスタムマッピング・サマリー表示の6機能搭載。</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">CLI</span>
+          <span class="tag">Automation</span>
+        </div>
+        <a class="project-link" href="https://github.com/draone1975-max/claude-source" target="_blank">↗ GitHub で見る</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb" style="background: linear-gradient(135deg,#2e1a1a,#3a1a2a)">⚗️</div>
+      <div class="project-body">
+        <div class="project-title">build-and-review パイプライン</div>
+        <p class="project-desc">calculator.py に適用し、@analyzer で HIGH×2 問題検出 → @builder で型ヒント・docstring 8件追加 → @reviewer が APPROVED 判定。</p>
+        <div class="tags">
+          <span class="tag">Multi-Agent</span>
+          <span class="tag">Pipeline</span>
+          <span class="tag">Code Quality</span>
+        </div>
+        <a class="project-link" href="https://github.com/draone1975-max/claude-test/blob/master/calculator.py" target="_blank">↗ 改善済みコードを見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built with <a href="https://claude.ai/code" target="_blank">Claude Code</a> &nbsp;·&nbsp;
+  <a href="https://github.com/draone1975-max" target="_blank">GitHub: draone1975-max</a></p>
+  <p style="margin-top:.5rem;font-size:.78rem">Generated: 2026-06-21</p>
+</footer>
+
+</body>
+</html>
