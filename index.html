@@ -526,7 +526,11 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
     </div>
     <div class="proj-card">
       <div class="proj-thumb">
-        <img src="image/photo1.jpg" alt="build-and-review パイプライン実行画面 — @analyzer・@builder・@reviewer が順次動作している Claude Code セッション" width="400" height="300" loading="lazy">
+        <!-- [T3-2][T3-3] リネーム + WebP 優先・JPG フォールバック -->
+        <picture>
+          <source srcset="image/project-pipeline.webp" type="image/webp">
+          <img src="image/project-pipeline.jpg" alt="build-and-review パイプライン実行画面 — @analyzer・@builder・@reviewer が順次動作している Claude Code セッション" width="400" height="300" loading="lazy">
+        </picture>
         <span style="font-size:2.5rem;position:absolute" aria-hidden="true">📸</span>
       </div>
       <div class="proj-body">
@@ -537,7 +541,11 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
     </div>
     <div class="proj-card">
       <div class="proj-thumb">
-        <img src="image/photo2.jpg" alt="file_organizer.py 実行結果 — 84ファイルのカテゴリ別整理サマリーが表示されているターミナル画面" width="400" height="300" loading="lazy">
+        <!-- [T3-2][T3-3] リネーム + WebP 優先・JPG フォールバック -->
+        <picture>
+          <source srcset="image/project-file-organizer.webp" type="image/webp">
+          <img src="image/project-file-organizer.jpg" alt="file_organizer.py 実行結果 — 84ファイルのカテゴリ別整理サマリーが表示されているターミナル画面" width="400" height="300" loading="lazy">
+        </picture>
         <span style="font-size:2.5rem;position:absolute" aria-hidden="true">📸</span>
       </div>
       <div class="proj-body">

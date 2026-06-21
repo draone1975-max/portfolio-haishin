@@ -40,11 +40,17 @@ structure:
 
 # ── カラー・デザイントークン ───────────────────────────────────
 mood:
-  overall: "プロフェッショナルなAI開発者ポートフォリオ。深みのあるダークネイビーベースで信頼感を演出。アクセントカラーで技術的洗練さを表現。"
+  # [T1-1] "Dark Premium × Kawaii Accent" という意図的なコントラスト設計
+  # 背景: GitHub Dark 系の深いダークで「信頼・技術力」を表現
+  # キャラ: パステルの kawaii イラストで「親しみやすさ・個性」を表現
+  # 効果: 無機質なダーク系に温かみを加え、他の開発者ポートフォリオと差別化
+  design_concept: "Dark Premium × Kawaii Accent — 技術的信頼感と親しみやすさを両立"
+  overall: "プロフェッショナルなAI開発者ポートフォリオ。深みのあるダークネイビーベースで信頼感を演出。kawaii キャラクターをアクセントに置き、技術力と個性を同時に表現。"
   keywords:
     - "tech-forward"
     - "clean & minimal"
     - "dark mode premium"
+    - "kawaii accent"
     - "developer aesthetic"
 
 colors:
