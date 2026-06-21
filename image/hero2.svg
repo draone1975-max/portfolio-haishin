@@ -1,0 +1,376 @@
+<svg viewBox="0 0 1200 600" width="1200" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fdf4ff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#fce7f3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ede9fe;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Drop shadow filter -->
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="4" dy="6" stdDeviation="6" flood-color="#c4b5f4" flood-opacity="0.35"/>
+    </filter>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#c4b5f4" flood-opacity="0.25"/>
+    </filter>
+    <filter id="starGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Character skin gradient -->
+    <radialGradient id="skinGrad" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" style="stop-color:#ffe4c4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffcba4;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Hoodie gradient -->
+    <linearGradient id="hoodieGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c4b5f4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Laptop gradient -->
+    <linearGradient id="laptopGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e0e7ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c7d2fe;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Coffee cup gradient -->
+    <linearGradient id="coffeeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fde68a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Speech bubble gradient -->
+    <linearGradient id="bubbleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fdf4ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bgGrad)"/>
+
+  <!-- Subtle background circles (decorative) -->
+  <circle cx="950" cy="80" r="180" fill="#c4b5f4" opacity="0.08"/>
+  <circle cx="1100" cy="450" r="120" fill="#fda4af" opacity="0.10"/>
+  <circle cx="700" cy="550" r="90" fill="#86efac" opacity="0.12"/>
+  <circle cx="550" cy="100" r="60" fill="#fde68a" opacity="0.15"/>
+
+  <!-- ============================== -->
+  <!--   DECORATIVE FLOATING ICONS   -->
+  <!-- ============================== -->
+
+  <!-- Floating laptop (top right area) -->
+  <g transform="translate(970, 60) rotate(-12)" filter="url(#softShadow)">
+    <!-- laptop base -->
+    <rect x="0" y="30" width="80" height="50" rx="6" fill="url(#laptopGrad)" stroke="#a78bfa" stroke-width="2"/>
+    <!-- screen -->
+    <rect x="5" y="35" width="70" height="38" rx="3" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+    <!-- screen content lines -->
+    <rect x="10" y="40" width="40" height="3" rx="1.5" fill="#c4b5f4"/>
+    <rect x="10" y="47" width="55" height="3" rx="1.5" fill="#e0e7ff"/>
+    <rect x="10" y="54" width="30" height="3" rx="1.5" fill="#c4b5f4"/>
+    <rect x="10" y="61" width="48" height="3" rx="1.5" fill="#e0e7ff"/>
+    <!-- keyboard bottom -->
+    <rect x="-5" y="78" width="90" height="8" rx="4" fill="#a78bfa" opacity="0.5"/>
+  </g>
+
+  <!-- Floating pen/pencil (left of character) -->
+  <g transform="translate(560, 150) rotate(35)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="12" height="70" rx="5" fill="#fda4af" stroke="#f472b6" stroke-width="1.5"/>
+    <polygon points="0,70 12,70 6,90" fill="#ffcba4" stroke="#f472b6" stroke-width="1.5"/>
+    <rect x="0" y="0" width="12" height="12" rx="5" fill="#86efac" stroke="#4ade80" stroke-width="1.5"/>
+    <rect x="0" y="60" width="12" height="12" fill="#e9d5ff" stroke="#f472b6" stroke-width="1"/>
+  </g>
+
+  <!-- Floating star 1 -->
+  <g transform="translate(620, 80)" filter="url(#starGlow)">
+    <polygon points="12,0 15,9 24,9 17,15 19,24 12,18 5,24 7,15 0,9 9,9" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
+  </g>
+
+  <!-- Floating star 2 -->
+  <g transform="translate(1100, 200)" filter="url(#starGlow)">
+    <polygon points="10,0 12.5,7.5 20,7.5 14,12.5 16,20 10,15 4,20 6,12.5 0,7.5 7.5,7.5" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
+  </g>
+
+  <!-- Floating star 3 (small) -->
+  <g transform="translate(1050, 480)">
+    <polygon points="8,0 10,6 16,6 11,10 13,16 8,12 3,16 5,10 0,6 6,6" fill="#c4b5f4" stroke="#a78bfa" stroke-width="1"/>
+  </g>
+
+  <!-- Sparkle 1 -->
+  <g transform="translate(590, 420)">
+    <line x1="10" y1="0" x2="10" y2="20" stroke="#fda4af" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="0" y1="10" x2="20" y2="10" stroke="#fda4af" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="2.9" y1="2.9" x2="17.1" y2="17.1" stroke="#fda4af" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="17.1" y1="2.9" x2="2.9" y2="17.1" stroke="#fda4af" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="10" cy="10" r="3" fill="#fda4af"/>
+  </g>
+
+  <!-- Sparkle 2 -->
+  <g transform="translate(1130, 130)">
+    <line x1="8" y1="0" x2="8" y2="16" stroke="#86efac" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="0" y1="8" x2="16" y2="8" stroke="#86efac" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="2.3" y1="2.3" x2="13.7" y2="13.7" stroke="#86efac" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="13.7" y1="2.3" x2="2.3" y2="13.7" stroke="#86efac" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="8" cy="8" r="2.5" fill="#86efac"/>
+  </g>
+
+  <!-- Sparkle 3 (tiny) -->
+  <g transform="translate(870, 510)">
+    <line x1="6" y1="0" x2="6" y2="12" stroke="#c4b5f4" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="6" x2="12" y2="6" stroke="#c4b5f4" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="6" cy="6" r="2" fill="#c4b5f4"/>
+  </g>
+
+  <!-- Floating heart -->
+  <g transform="translate(1060, 350)">
+    <path d="M12 4 C12 4 8 0 4 3 C0 6 0 11 6 16 L12 22 L18 16 C24 11 24 6 20 3 C16 0 12 4 12 4 Z" fill="#fda4af" stroke="#f472b6" stroke-width="1.5" transform="scale(0.8)"/>
+  </g>
+
+  <!-- Floating code bracket (small) -->
+  <g transform="translate(640, 500)">
+    <text x="0" y="24" font-family="monospace" font-size="28" fill="#c4b5f4" opacity="0.7" font-weight="bold">&lt;/&gt;</text>
+  </g>
+
+  <!-- Floating musical note (decoration) -->
+  <g transform="translate(1140, 380)">
+    <circle cx="6" cy="18" r="5" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
+    <rect x="11" y="0" width="2.5" height="16" rx="1" fill="#fde68a" stroke="#f59e0b" stroke-width="1"/>
+    <rect x="11" y="0" width="10" height="3" rx="1" fill="#f59e0b"/>
+  </g>
+
+  <!-- ============================== -->
+  <!--     MAIN CHARACTER (Chibi)     -->
+  <!-- x range: 520-1200, center ~860 -->
+  <!-- ============================== -->
+
+  <g transform="translate(750, 80)" filter="url(#dropShadow)">
+
+    <!-- Shadow under character -->
+    <ellipse cx="130" cy="485" rx="90" ry="18" fill="#c4b5f4" opacity="0.25"/>
+
+    <!-- ===== BODY / HOODIE ===== -->
+    <!-- Main hoodie body -->
+    <rect x="70" y="220" width="120" height="130" rx="30" fill="url(#hoodieGrad)" stroke="#7c3aed" stroke-width="2.5"/>
+    <!-- Hoodie pocket -->
+    <rect x="100" y="295" width="60" height="40" rx="12" fill="#a78bfa" stroke="#7c3aed" stroke-width="2"/>
+    <!-- Hoodie center seam -->
+    <line x1="130" y1="225" x2="130" y2="345" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>
+
+    <!-- Hoodie kangaroo pocket detail -->
+    <path d="M105 310 Q130 305 155 310" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+
+    <!-- Left arm -->
+    <path d="M75 240 Q30 280 20 320 Q15 340 35 345 Q55 350 65 320 Q75 285 85 260" fill="url(#hoodieGrad)" stroke="#7c3aed" stroke-width="2.5"/>
+
+    <!-- Left hand (holding coffee) -->
+    <ellipse cx="30" cy="348" rx="20" ry="18" fill="url(#skinGrad)" stroke="#d97706" stroke-width="2"/>
+
+    <!-- Coffee cup in left hand -->
+    <g transform="translate(-10, 330)">
+      <!-- cup body -->
+      <rect x="0" y="0" width="38" height="42" rx="6" fill="url(#coffeeGrad)" stroke="#d97706" stroke-width="2"/>
+      <!-- coffee surface -->
+      <ellipse cx="19" cy="6" rx="16" ry="5" fill="#7c4a03" opacity="0.7"/>
+      <!-- steam wisps -->
+      <path d="M10 -5 Q14 -15 10 -22" stroke="#c4b5f4" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.8"/>
+      <path d="M19 -8 Q23 -18 19 -26" stroke="#c4b5f4" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.8"/>
+      <path d="M28 -5 Q32 -15 28 -22" stroke="#c4b5f4" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.8"/>
+      <!-- cup handle -->
+      <path d="M38 8 Q56 8 56 21 Q56 34 38 34" stroke="#d97706" stroke-width="2.5" fill="none"/>
+      <!-- sleeve/wrap -->
+      <rect x="0" y="18" width="38" height="12" rx="3" fill="#86efac" stroke="#4ade80" stroke-width="1.5"/>
+      <!-- cup bottom -->
+      <rect x="0" y="36" width="38" height="8" rx="4" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
+    </g>
+
+    <!-- Right arm (slightly raised) -->
+    <path d="M185 240 Q225 270 238 305 Q245 328 228 335 Q210 342 200 315 Q190 285 180 258" fill="url(#hoodieGrad)" stroke="#7c3aed" stroke-width="2.5"/>
+    <!-- Right hand -->
+    <ellipse cx="235" cy="336" rx="20" ry="18" fill="url(#skinGrad)" stroke="#f59e0b" stroke-width="2"/>
+
+    <!-- ===== LEGS ===== -->
+    <!-- Left leg -->
+    <rect x="88" y="345" width="45" height="100" rx="18" fill="#7c3aed" stroke="#5b21b6" stroke-width="2"/>
+    <!-- Left shoe -->
+    <ellipse cx="110" cy="445" rx="30" ry="14" fill="#fda4af" stroke="#f472b6" stroke-width="2"/>
+    <ellipse cx="122" cy="448" rx="18" ry="10" fill="#fecdd3" stroke="#f472b6" stroke-width="1.5"/>
+
+    <!-- Right leg -->
+    <rect x="127" y="345" width="45" height="100" rx="18" fill="#7c3aed" stroke="#5b21b6" stroke-width="2"/>
+    <!-- Right shoe -->
+    <ellipse cx="150" cy="445" rx="30" ry="14" fill="#fda4af" stroke="#f472b6" stroke-width="2"/>
+    <ellipse cx="162" cy="448" rx="18" ry="10" fill="#fecdd3" stroke="#f472b6" stroke-width="1.5"/>
+
+    <!-- ===== HEAD ===== -->
+    <!-- Head base -->
+    <ellipse cx="130" cy="155" rx="80" ry="78" fill="url(#skinGrad)" stroke="#d97706" stroke-width="2.5"/>
+
+    <!-- Hair (dark, chibi style) -->
+    <path d="M52 130 Q50 60 130 55 Q210 60 208 130" fill="#2d1b69" stroke="#1e1147" stroke-width="2"/>
+    <!-- Hair strands detail -->
+    <path d="M52 130 Q45 100 60 80 Q75 60 90 58" stroke="#4c1d95" stroke-width="2" fill="none"/>
+    <path d="M208 130 Q215 100 200 80 Q185 60 170 58" stroke="#4c1d95" stroke-width="2" fill="none"/>
+    <!-- Hair top highlights -->
+    <path d="M95 58 Q130 52 165 58" stroke="#7c3aed" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+    <!-- Ahoge (hair antenna) -->
+    <path d="M130 55 Q118 25 132 8 Q140 22 130 55" fill="#2d1b69" stroke="#1e1147" stroke-width="1.5"/>
+
+    <!-- ===== HEADPHONES ===== -->
+    <!-- Headphone band -->
+    <path d="M52 148 Q50 72 130 68 Q210 72 208 148" stroke="#7c3aed" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <path d="M52 148 Q50 72 130 68 Q210 72 208 148" stroke="#c4b5f4" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+    <!-- Left ear cup -->
+    <ellipse cx="52" cy="155" rx="24" ry="28" fill="#7c3aed" stroke="#5b21b6" stroke-width="2.5"/>
+    <ellipse cx="52" cy="155" rx="15" ry="18" fill="#c4b5f4"/>
+    <ellipse cx="52" cy="155" rx="8" ry="10" fill="#a78bfa"/>
+
+    <!-- Right ear cup -->
+    <ellipse cx="208" cy="155" rx="24" ry="28" fill="#7c3aed" stroke="#5b21b6" stroke-width="2.5"/>
+    <ellipse cx="208" cy="155" rx="15" ry="18" fill="#c4b5f4"/>
+    <ellipse cx="208" cy="155" rx="8" ry="10" fill="#a78bfa"/>
+
+    <!-- ===== FACE ===== -->
+    <!-- Eyes (big cute chibi eyes) -->
+    <!-- Left eye -->
+    <ellipse cx="100" cy="165" rx="18" ry="20" fill="white" stroke="#2d1b69" stroke-width="2"/>
+    <ellipse cx="100" cy="167" rx="12" ry="14" fill="#2d1b69"/>
+    <ellipse cx="100" cy="165" rx="8" ry="10" fill="#7c3aed"/>
+    <ellipse cx="100" cy="165" rx="4" ry="5" fill="#1e1147"/>
+    <ellipse cx="106" cy="160" rx="3" ry="4" fill="white"/>
+    <ellipse cx="95" cy="172" rx="1.5" ry="2" fill="white" opacity="0.6"/>
+
+    <!-- Right eye -->
+    <ellipse cx="160" cy="165" rx="18" ry="20" fill="white" stroke="#2d1b69" stroke-width="2"/>
+    <ellipse cx="160" cy="167" rx="12" ry="14" fill="#2d1b69"/>
+    <ellipse cx="160" cy="165" rx="8" ry="10" fill="#7c3aed"/>
+    <ellipse cx="160" cy="165" rx="4" ry="5" fill="#1e1147"/>
+    <ellipse cx="166" cy="160" rx="3" ry="4" fill="white"/>
+    <ellipse cx="155" cy="172" rx="1.5" ry="2" fill="white" opacity="0.6"/>
+
+    <!-- Eyebrows -->
+    <path d="M84 142 Q100 136 116 141" stroke="#2d1b69" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M144 141 Q160 136 176 142" stroke="#2d1b69" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- Nose (tiny) -->
+    <ellipse cx="130" cy="185" rx="4" ry="3" fill="#ffb38a" opacity="0.7"/>
+
+    <!-- Mouth (cute smile) -->
+    <path d="M112 200 Q130 216 148 200" stroke="#2d1b69" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Small teeth -->
+    <path d="M118 205 Q130 215 142 205" stroke="white" stroke-width="1.5" fill="none" opacity="0.7"/>
+
+    <!-- Blush cheeks -->
+    <ellipse cx="80" cy="190" rx="16" ry="10" fill="#fda4af" opacity="0.45"/>
+    <ellipse cx="180" cy="190" rx="16" ry="10" fill="#fda4af" opacity="0.45"/>
+
+    <!-- ===== HOODIE HOOD (behind head) ===== -->
+    <path d="M60 195 Q50 165 80 145" stroke="#7c3aed" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+    <path d="M200 195 Q210 165 180 145" stroke="#7c3aed" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+
+  </g>
+  <!-- End of character group -->
+
+  <!-- ============================== -->
+  <!--     SPEECH BUBBLE              -->
+  <!-- ============================== -->
+  <g transform="translate(850, 90)" filter="url(#softShadow)">
+    <!-- Bubble body -->
+    <rect x="0" y="0" width="200" height="64" rx="22" fill="url(#bubbleGrad)" stroke="#c4b5f4" stroke-width="2.5"/>
+    <!-- Bubble tail (pointing down-left toward character head) -->
+    <polygon points="30,62 15,88 60,62" fill="white" stroke="#c4b5f4" stroke-width="2"/>
+    <polygon points="33,62 18,84 58,62" fill="white"/>
+    <!-- Speech text -->
+    <text x="100" y="30" text-anchor="middle" font-family="'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif" font-size="18" font-weight="bold" fill="#7c3aed">AI × 現場 = ✨</text>
+    <text x="100" y="52" text-anchor="middle" font-family="'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif" font-size="12" fill="#a78bfa">Let's create together!</text>
+  </g>
+
+  <!-- ============================== -->
+  <!--  ADDITIONAL FLOATING ELEMENTS  -->
+  <!-- ============================== -->
+
+  <!-- Floating small laptop (bottom area) -->
+  <g transform="translate(560, 380) rotate(8)" filter="url(#softShadow)">
+    <rect x="0" y="20" width="55" height="36" rx="5" fill="#e0e7ff" stroke="#a78bfa" stroke-width="1.5"/>
+    <rect x="3" y="23" width="49" height="27" rx="3" fill="white" stroke="#a78bfa" stroke-width="1"/>
+    <!-- screen code lines -->
+    <rect x="7" y="27" width="25" height="2" rx="1" fill="#86efac"/>
+    <rect x="7" y="32" width="38" height="2" rx="1" fill="#c4b5f4"/>
+    <rect x="7" y="37" width="18" height="2" rx="1" fill="#fda4af"/>
+    <rect x="7" y="42" width="33" height="2" rx="1" fill="#c4b5f4"/>
+    <rect x="-4" y="54" width="63" height="6" rx="3" fill="#a78bfa" opacity="0.5"/>
+  </g>
+
+  <!-- Floating pen (bottom right) -->
+  <g transform="translate(1120, 440) rotate(-25)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="9" height="52" rx="4" fill="#86efac" stroke="#4ade80" stroke-width="1.5"/>
+    <polygon points="0,52 9,52 4.5,66" fill="#ffcba4" stroke="#f59e0b" stroke-width="1.5"/>
+    <rect x="0" y="0" width="9" height="9" rx="4" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
+    <rect x="0" y="44" width="9" height="10" fill="#c4b5f4" stroke="#a78bfa" stroke-width="1"/>
+  </g>
+
+  <!-- Floating badge/tag -->
+  <g transform="translate(680, 300)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="75" height="34" rx="10" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="12" cy="17" r="5" fill="#f59e0b"/>
+    <rect x="22" y="10" width="40" height="4" rx="2" fill="#92400e" opacity="0.7"/>
+    <rect x="22" y="18" width="28" height="4" rx="2" fill="#92400e" opacity="0.4"/>
+  </g>
+
+  <!-- More sparkles scattered -->
+  <g transform="translate(730, 520)">
+    <line x1="5" y1="0" x2="5" y2="10" stroke="#fde68a" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="5" x2="10" y2="5" stroke="#fde68a" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="5" cy="5" r="2" fill="#fde68a"/>
+  </g>
+
+  <g transform="translate(1080, 510)">
+    <line x1="5" y1="0" x2="5" y2="10" stroke="#fda4af" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="5" x2="10" y2="5" stroke="#fda4af" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="5" cy="5" r="2" fill="#fda4af"/>
+  </g>
+
+  <!-- Dotted decoration pattern (bottom area) -->
+  <g opacity="0.3">
+    <circle cx="540" cy="540" r="4" fill="#c4b5f4"/>
+    <circle cx="560" cy="555" r="3" fill="#fda4af"/>
+    <circle cx="580" cy="540" r="4" fill="#86efac"/>
+    <circle cx="600" cy="555" r="3" fill="#fde68a"/>
+    <circle cx="620" cy="540" r="4" fill="#c4b5f4"/>
+  </g>
+
+  <!-- ============================== -->
+  <!--   LEFT SIDE (text area hint)   -->
+  <!--   Subtle decorative elements   -->
+  <!--   x: 0-480                     -->
+  <!-- ============================== -->
+
+  <!-- Subtle left-side corner decoration -->
+  <g opacity="0.5">
+    <circle cx="60" cy="60" r="35" fill="none" stroke="#c4b5f4" stroke-width="2" stroke-dasharray="6,4"/>
+    <circle cx="60" cy="60" r="18" fill="#fde68a" opacity="0.4"/>
+  </g>
+
+  <g opacity="0.4" transform="translate(380, 480)">
+    <polygon points="20,0 25,15 40,15 28,24 32,40 20,30 8,40 12,24 0,15 15,15" fill="#c4b5f4" stroke="#a78bfa" stroke-width="1.5"/>
+  </g>
+
+  <!-- Small sparkle left side -->
+  <g transform="translate(420, 140)" opacity="0.6">
+    <line x1="6" y1="0" x2="6" y2="12" stroke="#86efac" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="6" x2="12" y2="6" stroke="#86efac" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="6" cy="6" r="2.5" fill="#86efac"/>
+  </g>
+
+  <!-- Ground line (subtle) -->
+  <line x1="520" y1="548" x2="1180" y2="548" stroke="#c4b5f4" stroke-width="1.5" opacity="0.3" stroke-dasharray="8,6"/>
+
+</svg>

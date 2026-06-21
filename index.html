@@ -42,11 +42,22 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
+  /* ── base colors (design-prompt.yaml 準拠) ── */
   --bg:     #0d1117; --bg2: #161b22; --bg3: #21262d;
   --blue:   #58a6ff; --green: #3fb950; --purple: #bc8cff;
   --orange: #f78166; --text: #e6edf3; --muted: #8b949e;
   --faint:  #484f58; --border: #30363d;
-  --r: 8px; --mono: 'JetBrains Mono','Cascadia Code',monospace;
+  /* ── Agent3 追加変数 ── */
+  --text-dim: #484f58; --border-hover: #58a6ff;
+  --r: 8px; --r-btn: 6px; --r-badge: 4px; --r-pill: 99px;
+  --transition: all .15s ease;
+  --glow: 0 0 0 3px rgba(88,166,255,.1);
+  --shadow-card: 0 1px 3px rgba(0,0,0,.3);
+  --font: 'Inter','Segoe UI',system-ui,sans-serif;
+  --mono: 'JetBrains Mono','Cascadia Code',monospace;
+  --fs-hero: clamp(2.4rem,7vw,4.8rem);
+  --fs-h2: clamp(1.6rem,3.5vw,2.4rem);
+  --fs-body: .9rem; --fs-sm: .78rem; --fs-code: .82rem;
 }
 body { font-family: 'Inter','Segoe UI',system-ui,sans-serif; background: var(--bg); color: var(--text); font-size: .9rem; line-height: 1.7; overflow-x: hidden; }
 a { text-decoration: none; color: inherit; }
@@ -62,8 +73,11 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; a
 .nav-btn { font-size: .82rem; font-weight: 600; padding: .4rem 1rem; background: var(--blue); color: var(--bg); border-radius: var(--r); transition: opacity .15s; }
 .nav-btn:hover { opacity: .85; }
 
-/* hero */
-.hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 2rem; padding: 7rem 4rem 3rem; background: radial-gradient(ellipse 70% 50% at 30% 50%, rgba(88,166,255,.07) 0%, transparent 55%), radial-gradient(ellipse 40% 30% at 80% 80%, rgba(188,140,255,.05) 0%, transparent 50%); }
+/* hero — Agent1 hero2.svg を背景に使用 */
+.hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 2rem; padding: 7rem 4rem 3rem; position: relative; overflow: hidden; background: var(--bg); }
+.hero::before { content: ''; position: absolute; inset: 0; background: url('image/hero2.svg') right center / contain no-repeat; opacity: .18; pointer-events: none; z-index: 0; }
+.hero::after  { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--bg) 30%, transparent 70%); pointer-events: none; z-index: 0; }
+.hero > * { position: relative; z-index: 1; }
 .hero-content { text-align: left; }
 .hero-image { display: flex; align-items: center; justify-content: center; }
 .hero-image img { width: 100%; max-width: 560px; border-radius: 24px; filter: drop-shadow(0 8px 32px rgba(167,139,250,.25)); }
@@ -88,8 +102,10 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; a
 .rib-num { font-size: 1.8rem; font-weight: 700; color: var(--blue); font-family: var(--mono); }
 .rib-label { font-size: .7rem; color: var(--muted); margin-top: .15rem; }
 
-/* section */
-.wrap { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+/* section — Agent2 bg-pattern.svg を背景に使用 */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; position: relative; }
+.wrap::before { content: ''; position: absolute; inset: 0; background: url('image/bg-pattern.svg') 0 0 / 300px 300px repeat; opacity: .06; pointer-events: none; z-index: 0; }
+.wrap > * { position: relative; z-index: 1; }
 .sec-num { font-family: var(--mono); font-size: .72rem; color: var(--muted); letter-spacing: .1em; margin-bottom: .4rem; }
 .sec-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; letter-spacing: -.02em; margin-bottom: .5rem; }
 .sec-desc { color: var(--muted); margin-bottom: 2.5rem; font-size: .88rem; }
