@@ -5,509 +5,653 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hirahara — Claude Code Portfolio</title>
 <style>
-  :root {
-    --bg: #0a0a0f;
-    --bg2: #12121a;
-    --bg3: #1a1a26;
-    --accent: #7c6af7;
-    --accent2: #a78bfa;
-    --accent3: #38bdf8;
-    --text: #e8e8f0;
-    --muted: #8888aa;
-    --border: #2a2a3e;
-    --card: #16162080;
-    --green: #4ade80;
-    --orange: #fb923c;
-    --pink: #f472b6;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
+/* ── reset & tokens ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #08080f;
+  --bg2:     #0f0f1a;
+  --bg3:     #161625;
+  --surface: #1c1c2e;
+  --accent:  #7c6af7;
+  --accent2: #a78bfa;
+  --teal:    #2dd4bf;
+  --sky:     #38bdf8;
+  --green:   #4ade80;
+  --orange:  #fb923c;
+  --text:    #ececf4;
+  --muted:   #7878a0;
+  --faint:   #2e2e44;
+  --radius:  14px;
+}
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
 
-  /* ── hero ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
-    position: relative;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% -10%, #7c6af722 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 80%, #38bdf812 0%, transparent 50%);
-  }
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
-    border: 1px solid var(--border);
-    background: var(--bg2);
-    border-radius: 99px;
-    padding: .35rem 1rem;
-    font-size: .8rem;
-    color: var(--muted);
-    margin-bottom: 2rem;
-    letter-spacing: .05em;
-  }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-  .hero h1 {
-    font-size: clamp(2.5rem, 7vw, 5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #fff 30%, var(--accent2) 70%, var(--accent3));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .hero p {
-    font-size: 1.1rem;
-    color: var(--muted);
-    max-width: 560px;
-    margin-bottom: 2.5rem;
-  }
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-  .btn {
-    padding: .7rem 1.8rem;
-    border-radius: 8px;
-    font-size: .95rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all .2s;
-    cursor: pointer;
-    border: none;
-  }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
-  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent2); }
+/* ── noise grain overlay ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
 
-  /* ── stats bar ── */
-  .stats {
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: var(--bg2);
-    flex-wrap: wrap;
-  }
-  .stat {
-    flex: 1;
-    min-width: 140px;
-    padding: 1.5rem 2rem;
-    text-align: center;
-    border-right: 1px solid var(--border);
-  }
-  .stat:last-child { border-right: none; }
-  .stat-num { font-size: 2rem; font-weight: 700; color: var(--accent2); }
-  .stat-label { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+/* ── nav ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2.5rem;
+  backdrop-filter: blur(20px);
+  background: rgba(8,8,15,.7);
+  border-bottom: 1px solid var(--faint);
+}
+.nav-logo { font-weight: 700; font-size: 1.05rem; letter-spacing: -.02em; }
+.nav-logo span { color: var(--accent2); }
+.nav-links { display: flex; gap: 2rem; font-size: .88rem; color: var(--muted); }
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  padding: .45rem 1.2rem;
+  border-radius: 8px;
+  font-size: .85rem;
+  font-weight: 500;
+  transition: background .2s;
+}
+.nav-cta:hover { background: var(--accent2); }
 
-  /* ── section ── */
-  section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
-  .section-tag {
-    display: inline-block;
-    font-size: .75rem;
-    letter-spacing: .1em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: .75rem;
-  }
-  h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 600; margin-bottom: .75rem; }
-  .subtitle { color: var(--muted); margin-bottom: 3rem; }
+/* ── hero ── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+  position: relative;
+  background:
+    radial-gradient(ellipse 100% 70% at 50% 0%, #7c6af718 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 10% 80%, #2dd4bf0a 0%, transparent 50%),
+    radial-gradient(ellipse 50% 35% at 90% 70%, #38bdf80a 0%, transparent 50%);
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .6rem;
+  border: 1px solid var(--faint);
+  background: var(--bg2);
+  border-radius: 99px;
+  padding: .3rem 1rem;
+  font-size: .78rem;
+  color: var(--muted);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 0 #4ade8066;
+  animation: ripple 2s infinite;
+}
+@keyframes ripple {
+  0%   { box-shadow: 0 0 0 0 #4ade8066; }
+  70%  { box-shadow: 0 0 0 8px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.hero h1 {
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -.04em;
+  margin-bottom: 1.5rem;
+}
+.hero h1 .grad {
+  background: linear-gradient(130deg, #fff 20%, var(--accent2) 55%, var(--teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+}
+.hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .75rem 1.8rem;
+  border-radius: 10px;
+  font-size: .9rem; font-weight: 600;
+  transition: all .2s;
+  cursor: pointer; border: none;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 24px #7c6af733; }
+.btn-outline { background: transparent; color: var(--text); border: 1px solid var(--faint); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent2); transform: translateY(-2px); }
 
-  /* ── pipeline card ── */
-  .pipeline {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    margin-bottom: 2rem;
-  }
-  .pipe-step {
-    flex: 1;
-    padding: 1.5rem;
-    text-align: center;
-    position: relative;
-  }
-  .pipe-step + .pipe-step::before {
-    content: '→';
-    position: absolute;
-    left: -14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--accent);
-    font-size: 1.2rem;
-  }
-  .pipe-icon {
-    width: 48px; height: 48px;
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto .75rem;
-    font-size: 1.5rem;
-  }
-  .pipe-name { font-size: .95rem; font-weight: 600; }
-  .pipe-desc { font-size: .78rem; color: var(--muted); margin-top: .25rem; }
+/* ── scroll indicator ── */
+.scroll-hint {
+  margin-top: 4rem;
+  color: var(--muted);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+}
+.scroll-arrow { animation: bounce .3s infinite alternate; }
+@keyframes bounce { from{transform:translateY(0)} to{transform:translateY(4px)} }
 
-  /* ── agent grid ── */
-  .agent-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  .agent-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    transition: border-color .2s, transform .2s;
-    backdrop-filter: blur(8px);
-  }
-  .agent-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-  .agent-header { display: flex; align-items: center; gap: .75rem; margin-bottom: .6rem; }
-  .agent-icon { font-size: 1.4rem; }
-  .agent-name { font-size: .95rem; font-weight: 600; }
-  .agent-role {
-    display: inline-block;
-    font-size: .7rem;
-    padding: .15rem .6rem;
-    border-radius: 99px;
-    font-weight: 500;
-    margin-bottom: .6rem;
-  }
-  .role-agent { background: #7c6af722; color: var(--accent2); border: 1px solid #7c6af744; }
-  .role-skill { background: #38bdf822; color: var(--accent3); border: 1px solid #38bdf844; }
-  .agent-desc { font-size: .82rem; color: var(--muted); }
+/* ── stats ribbon ── */
+.ribbon {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--faint);
+  border-bottom: 1px solid var(--faint);
+  background: var(--bg2);
+}
+.ribbon-item {
+  padding: 1.75rem 1rem;
+  text-align: center;
+  border-right: 1px solid var(--faint);
+}
+.ribbon-item:last-child { border-right: none; }
+.ribbon-num {
+  font-size: 2.2rem; font-weight: 800;
+  background: linear-gradient(120deg, var(--accent2), var(--teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.ribbon-label { font-size: .75rem; color: var(--muted); margin-top: .2rem; letter-spacing: .04em; }
 
-  /* ── project card ── */
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.5rem;
-  }
-  .project-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    transition: border-color .2s, transform .2s;
-  }
-  .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
-  .project-thumb {
-    height: 160px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .project-thumb::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(to bottom, transparent 50%, var(--bg2));
-  }
-  .project-body { padding: 1.25rem 1.5rem 1.5rem; }
-  .project-title { font-size: 1.05rem; font-weight: 600; margin-bottom: .4rem; }
-  .project-desc { font-size: .83rem; color: var(--muted); margin-bottom: 1rem; }
-  .tags { display: flex; gap: .4rem; flex-wrap: wrap; }
-  .tag {
-    font-size: .72rem;
-    padding: .2rem .6rem;
-    border-radius: 99px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-  }
-  .project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: .4rem;
-    font-size: .82rem;
-    color: var(--accent2);
-    text-decoration: none;
-    margin-top: 1rem;
-  }
-  .project-link:hover { text-decoration: underline; }
+/* ── section wrapper ── */
+.section { padding: 6rem 2rem; max-width: 1140px; margin: 0 auto; }
+.section-label {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .72rem; font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase; letter-spacing: .12em;
+  margin-bottom: .75rem;
+}
+.section-label::before { content: ''; display: block; width: 16px; height: 2px; background: var(--accent); border-radius: 2px; }
+.section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -.03em; margin-bottom: .6rem; }
+.section-desc { color: var(--muted); margin-bottom: 3rem; font-size: .95rem; }
+hr.sep { border: none; border-top: 1px solid var(--faint); }
 
-  /* ── skills table ── */
-  .skill-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: .88rem;
-  }
-  .skill-table th {
-    text-align: left;
-    padding: .75rem 1rem;
-    border-bottom: 1px solid var(--border);
-    color: var(--muted);
-    font-weight: 500;
-    font-size: .78rem;
-    letter-spacing: .05em;
-    text-transform: uppercase;
-  }
-  .skill-table td {
-    padding: .85rem 1rem;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-  .skill-table tr:last-child td { border-bottom: none; }
-  .skill-table tr:hover td { background: var(--bg2); }
-  .cmd { font-family: monospace; color: var(--accent3); font-size: .85rem; }
+/* ── pipeline feature ── */
+.pipeline-wrap {
+  background: var(--bg2);
+  border: 1px solid var(--faint);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.pipeline-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--faint);
+  display: flex; align-items: center; gap: .75rem;
+  font-size: .85rem; color: var(--muted);
+}
+.dot3 { display: flex; gap: .4rem; }
+.dot3 span { width: 12px; height: 12px; border-radius: 50%; }
+.pipeline-body {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  padding: 2.5rem 2rem;
+  gap: .5rem;
+}
+.pipe-node {
+  background: var(--surface);
+  border: 1px solid var(--faint);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: border-color .2s;
+}
+.pipe-node:hover { border-color: var(--accent); }
+.pipe-emoji { font-size: 2rem; margin-bottom: .75rem; }
+.pipe-title { font-size: .95rem; font-weight: 700; margin-bottom: .3rem; }
+.pipe-sub { font-size: .77rem; color: var(--muted); }
+.pipe-arrow { color: var(--accent); font-size: 1.5rem; text-align: center; }
+.pipe-result {
+  margin: 0 2rem 2rem;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  background: var(--surface);
+  display: flex; align-items: center; gap: .75rem;
+  font-size: .85rem;
+}
+.result-badge {
+  padding: .3rem .8rem; border-radius: 99px;
+  font-size: .72rem; font-weight: 700; letter-spacing: .06em;
+}
+.approved { background: #4ade8022; color: var(--green); border: 1px solid #4ade8044; }
+.info-text { color: var(--muted); }
 
-  /* ── footer ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2.5rem 2rem;
-    text-align: center;
-    color: var(--muted);
-    font-size: .85rem;
-    background: var(--bg2);
-  }
-  footer a { color: var(--accent2); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
+/* ── agent bento ── */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+.bento-card {
+  background: var(--bg2);
+  border: 1px solid var(--faint);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color .2s, transform .2s;
+  position: relative;
+  overflow: hidden;
+}
+.bento-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.bento-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.bento-card:hover::before { opacity: 1; }
+.bc-purple::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.bc-teal::before { background: linear-gradient(90deg, var(--teal), var(--sky)); }
+.bc-orange::before { background: linear-gradient(90deg, var(--orange), #fbbf24); }
+.bento-icon { font-size: 1.8rem; margin-bottom: .75rem; }
+.bento-name { font-size: .95rem; font-weight: 700; margin-bottom: .3rem; }
+.bento-role {
+  display: inline-block; font-size: .68rem; font-weight: 600;
+  padding: .18rem .6rem; border-radius: 99px;
+  margin-bottom: .6rem;
+}
+.role-a { background: #7c6af722; color: var(--accent2); border: 1px solid #7c6af733; }
+.role-s { background: #2dd4bf18; color: var(--teal); border: 1px solid #2dd4bf33; }
+.bento-desc { font-size: .8rem; color: var(--muted); line-height: 1.6; }
+.bento-wide { grid-column: span 2; }
 
-  /* ── divider ── */
-  .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+/* ── skill list ── */
+.skill-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+}
+.skill-row {
+  display: flex; align-items: flex-start; gap: .75rem;
+  background: var(--bg2);
+  border: 1px solid var(--faint);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  transition: border-color .2s;
+}
+.skill-row:hover { border-color: var(--accent); }
+.skill-cmd {
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  font-size: .82rem;
+  color: var(--sky);
+  white-space: nowrap;
+  min-width: 160px;
+  font-weight: 500;
+}
+.skill-info { font-size: .8rem; color: var(--muted); }
+
+/* ── project showcase ── */
+.showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.showcase-card {
+  background: var(--bg2);
+  border: 1px solid var(--faint);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color .2s, transform .2s;
+  display: flex; flex-direction: column;
+}
+.showcase-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 16px 40px #00000044; }
+.sc-thumb {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.sc-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: .8;
+  transition: opacity .3s, transform .3s;
+}
+.showcase-card:hover .sc-thumb img { opacity: 1; transform: scale(1.03); }
+.sc-thumb-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: .75rem;
+}
+.sc-thumb::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to top, var(--bg2), transparent);
+}
+.sc-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.sc-tags { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .75rem; }
+.sc-tag {
+  font-size: .68rem; padding: .18rem .55rem;
+  border-radius: 99px;
+  border: 1px solid var(--faint);
+  color: var(--muted);
+}
+.sc-title { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
+.sc-desc { font-size: .83rem; color: var(--muted); flex: 1; margin-bottom: 1.25rem; line-height: 1.65; }
+.sc-link {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .82rem; color: var(--accent2);
+  font-weight: 500;
+}
+.sc-link:hover { text-decoration: underline; }
+
+/* ── image grid ── */
+.img-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.img-frame {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--faint);
+  aspect-ratio: 4/3;
+}
+.img-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── footer ── */
+footer {
+  border-top: 1px solid var(--faint);
+  background: var(--bg2);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.footer-logo { font-size: 1.3rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: .5rem; }
+.footer-logo span { color: var(--accent2); }
+.footer-links { display: flex; justify-content: center; gap: 1.5rem; font-size: .85rem; color: var(--muted); margin: 1rem 0; }
+.footer-links a:hover { color: var(--accent2); }
+.footer-copy { font-size: .78rem; color: var(--muted); opacity: .6; }
+
+@media (max-width: 768px) {
+  .ribbon { grid-template-columns: repeat(3, 1fr); }
+  .bento { grid-template-columns: 1fr; }
+  .bento-wide { grid-column: span 1; }
+  .skill-list { grid-template-columns: 1fr; }
+  .showcase { grid-template-columns: 1fr; }
+  .pipeline-body { grid-template-columns: 1fr; }
+  .pipe-arrow { transform: rotate(90deg); }
+  .nav-links { display: none; }
+}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-badge">
-    <span class="dot"></span>
-    Claude Code Learning Portfolio
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">H<span>.</span>Portfolio</div>
+  <div class="nav-links">
+    <a href="#pipeline">Pipeline</a>
+    <a href="#agents">Agents</a>
+    <a href="#projects">Projects</a>
   </div>
-  <h1>Hirahara<br>Claude Code Works</h1>
-  <p>Claude Code を使って構築した SubAgents・Skills・自動化スクリプトの実績まとめ</p>
-  <div class="hero-btns">
-    <a class="btn btn-primary" href="https://github.com/draone1975-max/claude-test" target="_blank">GitHub を見る</a>
-    <a class="btn btn-ghost" href="#works">実績を見る</a>
-  </div>
-</div>
+  <a class="nav-cta" href="https://github.com/draone1975-max" target="_blank">GitHub ↗</a>
+</nav>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat"><div class="stat-num">7</div><div class="stat-label">SubAgents</div></div>
-  <div class="stat"><div class="stat-num">11</div><div class="stat-label">Custom Skills</div></div>
-  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Pipeline Steps</div></div>
-  <div class="stat"><div class="stat-num">84</div><div class="stat-label">Files Organized</div></div>
-  <div class="stat"><div class="stat-num">2</div><div class="stat-label">GitHub Repos</div></div>
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">
+      <span class="live-dot"></span>
+      Claude Code Learning Portfolio
+    </div>
+    <h1>
+      <span class="grad">Claude Code</span><br>Works
+    </h1>
+    <p class="hero-sub">
+      SubAgents・Skills・自動化スクリプトを構築した<br>Claude Code 学習の全成果物
+    </p>
+    <div class="hero-btns">
+      <a class="btn btn-primary" href="https://github.com/draone1975-max/claude-test" target="_blank">
+        ⭐ claude-test
+      </a>
+      <a class="btn btn-outline" href="#projects">実績を見る →</a>
+    </div>
+    <div class="scroll-hint">
+      <span>スクロール</span>
+      <span class="scroll-arrow">↓</span>
+    </div>
+  </div>
+</section>
+
+<!-- RIBBON -->
+<div class="ribbon">
+  <div class="ribbon-item"><div class="ribbon-num">7</div><div class="ribbon-label">SubAgents</div></div>
+  <div class="ribbon-item"><div class="ribbon-num">11</div><div class="ribbon-label">Custom Skills</div></div>
+  <div class="ribbon-item"><div class="ribbon-num">3</div><div class="ribbon-label">Pipeline Steps</div></div>
+  <div class="ribbon-item"><div class="ribbon-num">84</div><div class="ribbon-label">Files Organized</div></div>
+  <div class="ribbon-item"><div class="ribbon-num">2</div><div class="ribbon-label">GitHub Repos</div></div>
 </div>
 
 <!-- PIPELINE -->
-<section>
-  <span class="section-tag">Highlight</span>
-  <h2>build-and-review パイプライン</h2>
-  <p class="subtitle">3つの専門 SubAgent を順次連携させる実践的なワークフロー</p>
+<section class="section" id="pipeline">
+  <div class="section-label">Highlight</div>
+  <h2 class="section-title">build-and-review パイプライン</h2>
+  <p class="section-desc">3つの専門 SubAgent が順次連携して Python コードを自動改善・検証する実践ワークフロー</p>
 
-  <div class="pipeline">
-    <div class="pipe-step">
-      <div class="pipe-icon" style="background:#7c6af722">🔍</div>
-      <div class="pipe-name">@analyzer</div>
-      <div class="pipe-desc">静的解析・問題点抽出</div>
+  <div class="pipeline-wrap">
+    <div class="pipeline-header">
+      <div class="dot3">
+        <span style="background:#ff5f57"></span>
+        <span style="background:#febc2e"></span>
+        <span style="background:#28c840"></span>
+      </div>
+      <span>terminal — /build-and-review calculator.py</span>
     </div>
-    <div class="pipe-step">
-      <div class="pipe-icon" style="background:#38bdf822">🔨</div>
-      <div class="pipe-name">@builder</div>
-      <div class="pipe-desc">改善コード自動生成</div>
+    <div class="pipeline-body">
+      <div class="pipe-node">
+        <div class="pipe-emoji">🔍</div>
+        <div class="pipe-title">@analyzer</div>
+        <div class="pipe-sub">静的解析<br>問題点を HIGH / MEDIUM / LOW で分類</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node">
+        <div class="pipe-emoji">🔨</div>
+        <div class="pipe-title">@builder</div>
+        <div class="pipe-sub">改善コード生成<br>型ヒント・docstring を自動追加</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-node">
+        <div class="pipe-emoji">✅</div>
+        <div class="pipe-title">@reviewer</div>
+        <div class="pipe-sub">品質検証<br>網羅性・安全性・一貫性をチェック</div>
+      </div>
     </div>
-    <div class="pipe-step">
-      <div class="pipe-icon" style="background:#4ade8022">✅</div>
-      <div class="pipe-name">@reviewer</div>
-      <div class="pipe-desc">品質検証・最終判定</div>
-    </div>
-  </div>
-  <p style="font-size:.85rem;color:var(--muted)">
-    STEP 1 の分析レポートを STEP 2 に、STEP 2 の改善コードを STEP 3 に引き渡す完全自動パイプライン。<br>
-    最終判定は <strong style="color:var(--green)">APPROVED</strong> / <strong style="color:var(--orange)">NEEDS REVISION</strong> で出力される。
-  </p>
-</section>
-
-<hr class="divider">
-
-<!-- AGENTS & SKILLS -->
-<section id="works">
-  <span class="section-tag">SubAgents</span>
-  <h2>カスタム SubAgents</h2>
-  <p class="subtitle">.claude/agents/ に配置した専門エージェント一覧</p>
-
-  <div class="agent-grid">
-    <div class="agent-card">
-      <div class="agent-header"><span class="agent-icon">🔍</span><span class="agent-name">@analyzer</span></div>
-      <span class="agent-role role-agent">Agent</span>
-      <p class="agent-desc">Python ファイルを静的解析して構造・問題点を HIGH / MEDIUM / LOW で分類出力</p>
-    </div>
-    <div class="agent-card">
-      <div class="agent-header"><span class="agent-icon">🔨</span><span class="agent-name">@builder</span></div>
-      <span class="agent-role role-agent">Agent</span>
-      <p class="agent-desc">分析レポートをもとにコードを改善・リファクタリング（型ヒント・docstring 追加）</p>
-    </div>
-    <div class="agent-card">
-      <div class="agent-header"><span class="agent-icon">✅</span><span class="agent-name">@reviewer</span></div>
-      <span class="agent-role role-agent">Agent</span>
-      <p class="agent-desc">改善コードの品質・網羅性を検証して APPROVED / NEEDS REVISION を判定</p>
-    </div>
-    <div class="agent-card">
-      <div class="agent-header"><span class="agent-icon">📋</span><span class="agent-name">@code-reviewer</span></div>
-      <span class="agent-role role-agent">Agent</span>
-      <p class="agent-desc">コードレビューの専門エージェント。問題点・改善提案をリスト形式で報告</p>
-    </div>
-    <div class="agent-card">
-      <div class="agent-header"><span class="agent-icon">📝</span><span class="agent-name">@doc-writer</span></div>
-      <span class="agent-role role-agent">Agent</span>
-      <p class="agent-desc">Python コードを解析して Markdown ドキュメントを自動生成</p>
-    </div>
-    <div class="agent-card">
-      <div class="agent-header"><span class="agent-icon">🧪</span><span class="agent-name">@test-runner</span></div>
-      <span class="agent-role role-agent">Agent</span>
-      <p class="agent-desc">unittest を自動生成・実行。正常系・異常系・境界値のテストケースを作成</p>
-    </div>
-    <div class="agent-card">
-      <div class="agent-header"><span class="agent-icon">✍️</span><span class="agent-name">@seo-blog-writer</span></div>
-      <span class="agent-role role-agent">Agent</span>
-      <p class="agent-desc">SEO 構成で記事を執筆し、char-counter スキルで文字数を最適化</p>
+    <div class="pipe-result">
+      <span class="result-badge approved">APPROVED</span>
+      <span class="info-text">HIGH 問題 2件すべて対応済み・品質評価に致命的問題なし → 改善完了</span>
     </div>
   </div>
 </section>
 
-<hr class="divider">
+<hr class="sep">
 
-<!-- SKILLS TABLE -->
-<section>
-  <span class="section-tag">Skills</span>
-  <h2>カスタム Skills（スラッシュコマンド）</h2>
-  <p class="subtitle">.claude/commands/ に配置した /コマンド一覧</p>
+<!-- AGENTS BENTO -->
+<section class="section" id="agents">
+  <div class="section-label">SubAgents</div>
+  <h2 class="section-title">7つのカスタム SubAgents</h2>
+  <p class="section-desc">.claude/agents/ に配置。@エージェント名で呼び出し、または Claude が自動判断して委譲</p>
 
-  <table class="skill-table">
-    <thead>
-      <tr>
-        <th>コマンド</th>
-        <th>説明</th>
-        <th>特徴</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="cmd">/build-and-review</span></td>
-        <td>Analyzer→Builder→Reviewer の3段階パイプライン実行</td>
-        <td><span class="tag">Pipeline</span></td>
-      </tr>
-      <tr>
-        <td><span class="cmd">/file-summarizer</span></td>
-        <td>ファイルを要約＋改善提案まで出力する3段階処理</td>
-        <td><span class="tag">Pipeline</span></td>
-      </tr>
-      <tr>
-        <td><span class="cmd">/code-report</span></td>
-        <td>Python を静的解析して品質レポート（Markdown）を生成</td>
-        <td><span class="tag">Sub-resource</span></td>
-      </tr>
-      <tr>
-        <td><span class="cmd">/char-counter</span></td>
-        <td>改行±・スペース±の4パターンで文字数カウント</td>
-        <td><span class="tag">Utility</span></td>
-      </tr>
-      <tr>
-        <td><span class="cmd">/security-checks</span></td>
-        <td>OWASP Top 10 準拠のセキュリティ脆弱性チェック</td>
-        <td><span class="tag">Security</span></td>
-      </tr>
-      <tr>
-        <td><span class="cmd">/git-commit-writer</span></td>
-        <td>git diff を分析して Conventional Commits 形式のメッセージを生成</td>
-        <td><span class="tag">Git</span></td>
-      </tr>
-      <tr>
-        <td><span class="cmd">/readme-generator</span></td>
-        <td>プロジェクトを解析して README.md を自動生成</td>
-        <td><span class="tag">Docs</span></td>
-      </tr>
-      <tr>
-        <td><span class="cmd">/performance-guide</span></td>
-        <td>計算量・メモリ・I/O効率のボトルネックを診断</td>
-        <td><span class="tag">Analysis</span></td>
-      </tr>
-      <tr>
-        <td><span class="cmd">/database-tips</span></td>
-        <td>DBクエリ最適化・インデックス戦略をアドバイス</td>
-        <td><span class="tag">DB</span></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="bento">
+    <div class="bento-card bc-purple bento-wide">
+      <div class="bento-icon">⚗️</div>
+      <div class="bento-name">build-and-review トリオ</div>
+      <span class="bento-role role-a">Agent × 3</span>
+      <p class="bento-desc">@analyzer（分析）→ @builder（改善）→ @reviewer（検証）の3段階パイプライン。各エージェントが独立したコンテキストで動作し、前ステージの出力を次ステージへ引き渡す。</p>
+    </div>
+    <div class="bento-card bc-teal">
+      <div class="bento-icon">📋</div>
+      <div class="bento-name">@code-reviewer</div>
+      <span class="bento-role role-a">Agent</span>
+      <p class="bento-desc">コード品質を OWASP・PEP8・設計原則の観点でレビューし、問題点・改善提案をリスト形式で報告</p>
+    </div>
+    <div class="bento-card bc-teal">
+      <div class="bento-icon">📝</div>
+      <div class="bento-name">@doc-writer</div>
+      <span class="bento-role role-a">Agent</span>
+      <p class="bento-desc">Python コードを解析して関数・クラスの仕様を README 風 Markdown に自動生成</p>
+    </div>
+    <div class="bento-card bc-orange">
+      <div class="bento-icon">🧪</div>
+      <div class="bento-name">@test-runner</div>
+      <span class="bento-role role-a">Agent</span>
+      <p class="bento-desc">正常系・異常系・境界値の unittest を自動生成し Bash で実行。結果をサマリーで報告</p>
+    </div>
+    <div class="bento-card bc-orange">
+      <div class="bento-icon">✍️</div>
+      <div class="bento-name">@seo-blog-writer</div>
+      <span class="bento-role role-a">Agent</span>
+      <p class="bento-desc">SEO 構成で記事を執筆し char-counter スキルで文字数を ±5% 以内に自動最適化</p>
+    </div>
+  </div>
 </section>
 
-<hr class="divider">
+<hr class="sep">
+
+<!-- SKILLS -->
+<section class="section">
+  <div class="section-label">Skills</div>
+  <h2 class="section-title">11のカスタム Skills</h2>
+  <p class="section-desc">.claude/commands/ に配置。/コマンド名 または自然文で自動発動</p>
+
+  <div class="skill-list">
+    <div class="skill-row">
+      <span class="skill-cmd">/build-and-review</span>
+      <span class="skill-info">Analyzer→Builder→Reviewer の3段階パイプラインを順次実行</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cmd">/file-summarizer</span>
+      <span class="skill-info">ファイル読込 → 要約 → 改善提案の3段階処理（引数で文字数指定可）</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cmd">/code-report</span>
+      <span class="skill-info">Python を静的解析して品質メトリクスを Markdown レポートに出力</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cmd">/char-counter</span>
+      <span class="skill-info">改行±・スペース±の4パターンで文字数を正確にカウント</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cmd">/security-checks</span>
+      <span class="skill-info">OWASP Top 10 準拠でコードの脆弱性を CRITICAL/HIGH/MEDIUM/LOW 分類</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cmd">/git-commit-writer</span>
+      <span class="skill-info">git diff を分析して Conventional Commits 形式のメッセージを自動生成</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cmd">/readme-generator</span>
+      <span class="skill-info">プロジェクト構成を解析して README.md を自動生成</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cmd">/performance-guide</span>
+      <span class="skill-info">計算量・メモリ・I/O のボトルネックを特定して改善例を提示</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cmd">/database-tips</span>
+      <span class="skill-info">DBクエリ最適化・インデックス戦略・N+1問題などをアドバイス</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cmd">/changelog-generator</span>
+      <span class="skill-info">git log を解析して CHANGELOG.md を自動生成</span>
+    </div>
+    <div class="skill-row">
+      <span class="skill-cmd">/env-doctor</span>
+      <span class="skill-info">開発環境の設定・依存関係の問題を診断してレポート</span>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
 
 <!-- PROJECTS -->
-<section>
-  <span class="section-tag">Projects</span>
-  <h2>プロジェクト実績</h2>
-  <p class="subtitle">Claude Code セッション中に構築・コミットしたプロジェクト</p>
+<section class="section" id="projects">
+  <div class="section-label">Projects</div>
+  <h2 class="section-title">プロジェクト実績</h2>
+  <p class="section-desc">このセッションで構築・GitHub に公開したプロジェクト</p>
 
-  <div class="project-grid">
-    <div class="project-card">
-      <div class="project-thumb" style="background: linear-gradient(135deg,#1a1a3e,#2a1a4e)">🤖</div>
-      <div class="project-body">
-        <div class="project-title">claude-test — Claude Code 学習リポジトリ</div>
-        <p class="project-desc">SubAgents・Skills・Commands の実験場。7エージェント・11スキルを整備し、規約準拠（name: 除去・model: 短縮名）まで実施。</p>
-        <div class="tags">
-          <span class="tag">SubAgents</span>
-          <span class="tag">Skills</span>
-          <span class="tag">Pipeline</span>
-          <span class="tag">Python</span>
+  <div class="showcase">
+    <div class="showcase-card">
+      <div class="sc-thumb">
+        <div class="sc-thumb-placeholder" style="background:linear-gradient(135deg,#12122a,#1e1040)">
+          <span style="font-size:3.5rem">🤖</span>
+          <span style="font-size:.85rem;color:var(--muted)">claude-test</span>
         </div>
-        <a class="project-link" href="https://github.com/draone1975-max/claude-test" target="_blank">↗ GitHub で見る</a>
+      </div>
+      <div class="sc-body">
+        <div class="sc-tags">
+          <span class="sc-tag">SubAgents</span>
+          <span class="sc-tag">Skills</span>
+          <span class="sc-tag">Pipeline</span>
+          <span class="sc-tag">Python</span>
+        </div>
+        <div class="sc-title">claude-test — Claude Code 学習リポジトリ</div>
+        <p class="sc-desc">7 SubAgent・11 Skills を構築した Claude Code の実験場。claude-code-guide 規約に準拠（name: 除去・model: 短縮名）し、build-and-review パイプラインで実際のコード改善を実証。</p>
+        <a class="sc-link" href="https://github.com/draone1975-max/claude-test" target="_blank">↗ GitHubで見る</a>
       </div>
     </div>
 
-    <div class="project-card">
-      <div class="project-thumb" style="background: linear-gradient(135deg,#1a2e1a,#1a3a2a)">📁</div>
-      <div class="project-body">
-        <div class="project-title">file_organizer.py — ファイル整理自動化</div>
-        <p class="project-desc">84ファイルをカテゴリ別サブフォルダに自動仕分け。undo・重複リネーム・ログ出力・再帰処理・カスタムマッピング・サマリー表示の6機能搭載。</p>
-        <div class="tags">
-          <span class="tag">Python</span>
-          <span class="tag">CLI</span>
-          <span class="tag">Automation</span>
+    <div class="showcase-card">
+      <div class="sc-thumb">
+        <div class="sc-thumb-placeholder" style="background:linear-gradient(135deg,#0a1f12,#0d2a18)">
+          <span style="font-size:3.5rem">📁</span>
+          <span style="font-size:.85rem;color:var(--muted)">file_organizer.py</span>
         </div>
-        <a class="project-link" href="https://github.com/draone1975-max/claude-source" target="_blank">↗ GitHub で見る</a>
+      </div>
+      <div class="sc-body">
+        <div class="sc-tags">
+          <span class="sc-tag">Python</span>
+          <span class="sc-tag">CLI</span>
+          <span class="sc-tag">Automation</span>
+          <span class="sc-tag">6 Features</span>
+        </div>
+        <div class="sc-title">file_organizer.py — ファイル整理自動化</div>
+        <p class="sc-desc">84ファイルを拡張子別に自動仕分け。undo（復元）・重複リネーム・ログ出力・再帰処理・カスタムマッピング・サマリー表示の6機能を段階的に実装し claude-source リポジトリで管理。</p>
+        <a class="sc-link" href="https://github.com/draone1975-max/claude-source" target="_blank">↗ GitHubで見る</a>
       </div>
     </div>
+  </div>
 
-    <div class="project-card">
-      <div class="project-thumb" style="background: linear-gradient(135deg,#2e1a1a,#3a1a2a)">⚗️</div>
-      <div class="project-body">
-        <div class="project-title">build-and-review パイプライン</div>
-        <p class="project-desc">calculator.py に適用し、@analyzer で HIGH×2 問題検出 → @builder で型ヒント・docstring 8件追加 → @reviewer が APPROVED 判定。</p>
-        <div class="tags">
-          <span class="tag">Multi-Agent</span>
-          <span class="tag">Pipeline</span>
-          <span class="tag">Code Quality</span>
-        </div>
-        <a class="project-link" href="https://github.com/draone1975-max/claude-test/blob/master/calculator.py" target="_blank">↗ 改善済みコードを見る</a>
-      </div>
+  <!-- 画像グリッド -->
+  <div class="img-grid">
+    <div class="img-frame">
+      <img src="image/photo1.jpg" alt="実績画像1" onerror="this.parentElement.style.background='var(--surface)';this.style.display='none'">
+    </div>
+    <div class="img-frame">
+      <img src="image/photo2.jpg" alt="実績画像2" onerror="this.parentElement.style.background='var(--surface)';this.style.display='none'">
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>Built with <a href="https://claude.ai/code" target="_blank">Claude Code</a> &nbsp;·&nbsp;
-  <a href="https://github.com/draone1975-max" target="_blank">GitHub: draone1975-max</a></p>
-  <p style="margin-top:.5rem;font-size:.78rem">Generated: 2026-06-21</p>
+  <div class="footer-logo">H<span>.</span>Portfolio</div>
+  <p style="color:var(--muted);font-size:.85rem;margin-top:.4rem">Claude Code で構築した全成果物をまとめたポートフォリオ</p>
+  <div class="footer-links">
+    <a href="https://github.com/draone1975-max/claude-test" target="_blank">claude-test</a>
+    <a href="https://github.com/draone1975-max/claude-source" target="_blank">claude-source</a>
+    <a href="https://github.com/draone1975-max/portfolio-haishin" target="_blank">このサイトのソース</a>
+  </div>
+  <p class="footer-copy">© 2026 Hirahara · Built with Claude Code</p>
 </footer>
 
 </body>
