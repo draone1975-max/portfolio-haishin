@@ -1,0 +1,84 @@
+# design-prompt.yaml
+# 参考: unikoukokun.com 風 × AI開発者ポートフォリオ
+# 具体的な文言・レイアウトは対象外。配色・雰囲気・質感を抽象化
+
+mood:
+  overall: "プロフェッショナルなAI開発者ポートフォリオ。深みのあるダークネイビーベースで信頼感を演出。アクセントカラーで技術的洗練さを表現。"
+  keywords:
+    - "tech-forward"
+    - "clean & minimal"
+    - "dark mode premium"
+    - "developer aesthetic"
+
+colors:
+  background:
+    primary: "#0d1117"      # GitHub Dark に近い深いブラック
+    secondary: "#161b22"    # カード・セクション背景
+    tertiary: "#21262d"     # ホバー・インタラクティブ要素
+  accent:
+    primary: "#58a6ff"      # ブルー（リンク・強調）
+    secondary: "#3fb950"    # グリーン（成功・ライブ表示）
+    highlight: "#f78166"    # オレンジレッド（警告・バッジ）
+    purple: "#bc8cff"       # パープル（タグ・ラベル）
+  text:
+    primary: "#e6edf3"      # メインテキスト（明るいグレー）
+    secondary: "#8b949e"    # サブテキスト・説明文
+    muted: "#484f58"        # プレースホルダー・非活性
+  border:
+    default: "#30363d"      # 通常のボーダー
+    hover: "#58a6ff"        # ホバー時ボーダー
+
+typography:
+  font_stack: "'Inter', 'Segoe UI', system-ui, sans-serif"
+  mono_stack: "'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace"
+  scale:
+    hero: "clamp(2.8rem, 8vw, 5.5rem)"
+    h2: "clamp(1.6rem, 3.5vw, 2.4rem)"
+    h3: "1.1rem"
+    body: "0.9rem"
+    small: "0.78rem"
+    code: "0.82rem"
+  weight:
+    bold: 700
+    semibold: 600
+    normal: 400
+  letter_spacing:
+    tight: "-0.03em"
+    normal: "0"
+    wide: "0.08em"
+
+spacing:
+  section_padding: "5rem 2rem"
+  card_padding: "1.25rem 1.5rem"
+  gap_grid: "1rem"
+
+effects:
+  border_radius:
+    card: "8px"
+    button: "6px"
+    badge: "4px"
+    pill: "99px"
+  transitions: "all 0.15s ease"
+  hover_lift: "translateY(-2px)"
+  glow_accent: "0 0 0 3px rgba(88, 166, 255, 0.1)"
+  card_shadow: "0 1px 3px rgba(0,0,0,0.3)"
+
+components:
+  nav:
+    style: "fixed, blur backdrop, bottom border"
+    bg: "rgba(13,17,23,0.85)"
+    blur: "blur(12px)"
+  hero:
+    style: "centered, gradient text on dark, minimal noise"
+    badge: "pill shape, border + dim bg"
+  cards:
+    style: "flat dark, subtle border, accent border on hover"
+    no_rounded_corners_on_accent_bar: true
+  buttons:
+    primary: "solid accent blue, subtle glow on hover"
+    ghost: "transparent, border, no fill"
+  code_blocks:
+    style: "dark terminal style, monospace font, dim background"
+    border: "left accent bar OR full border"
+  tags:
+    style: "small pill, dim bg, colored text per category"
