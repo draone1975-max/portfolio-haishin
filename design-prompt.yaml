@@ -26,11 +26,15 @@ structure:
   sections:
     - id: hero
       role: "ファーストビュー。キャッチコピー + CTA ボタン"
-    - id: gallery       # 旧 projects — T2-1 修正
+    - id: gallery
       role: "中核セクション。実績画像グリッド + GitHub リンク"
-      priority: HIGH    # T2-3: Gallery を about より先に配置
+      priority: HIGH
     - id: about
       role: "自己紹介・技術スタック・統計"
+    - id: pipeline
+      role: "build-and-review パイプラインのハイライト（Claude Code 学習ポートフォリオ固有）"
+    - id: agents
+      role: "7つのカスタム SubAgents 一覧（Claude Code 学習ポートフォリオ固有）"
     - id: skills
       role: "カスタム Skills 一覧テーブル"
     - id: contact
