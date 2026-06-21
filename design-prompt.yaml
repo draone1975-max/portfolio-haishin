@@ -2,6 +2,43 @@
 # 参考: unikoukokun.com 風 × AI開発者ポートフォリオ
 # 具体的な文言・レイアウトは対象外。配色・雰囲気・質感を抽象化
 
+# ── T1. 参考サイトリサーチ記録 ──────────────────────────────
+research:
+  sites:
+    - url: "https://unikoukokun.com/"
+      purpose: "配色トーン参考（ダークベース × パステルアクセント）"
+      reference_for: ["color_palette", "mood", "developer_aesthetic"]
+      copyright_note: "デザイン参考のみ。コード・ビジュアルは独自制作"
+
+    - url: "https://github.com/draone1975-max"
+      purpose: "スクショをグリッドで見せる開発者ポートフォリオの構造参考"
+      reference_for: ["grid_layout", "project_card_structure"]
+      copyright_note: "自分のGitHubのため問題なし"
+
+  themes:
+    tone_reference:    "unikoukokun.com 系 — ダークネイビー × ブルーアクセント"
+    layout_reference:  "GitHub Dark 系 — カード + テーブル + ターミナル風UI"
+    image_grid_style:  "auto-fill minmax グリッド、4:3 サムネイル統一"
+
+# ── T2. 構造提案 ──────────────────────────────────────────────
+structure:
+  # YAML 規定のセクション順（実装と整合させること）
+  sections:
+    - id: hero
+      role: "ファーストビュー。キャッチコピー + CTA ボタン"
+    - id: gallery       # 旧 projects — T2-1 修正
+      role: "中核セクション。実績画像グリッド + GitHub リンク"
+      priority: HIGH    # T2-3: Gallery を about より先に配置
+    - id: about
+      role: "自己紹介・技術スタック・統計"
+    - id: skills
+      role: "カスタム Skills 一覧テーブル"
+    - id: contact
+      role: "GitHub 導線・CTA"
+  mobile_first: true
+  layout: single_page_scroll
+
+# ── カラー・デザイントークン ───────────────────────────────────
 mood:
   overall: "プロフェッショナルなAI開発者ポートフォリオ。深みのあるダークネイビーベースで信頼感を演出。アクセントカラーで技術的洗練さを表現。"
   keywords:
@@ -12,73 +49,60 @@ mood:
 
 colors:
   background:
-    primary: "#0d1117"      # GitHub Dark に近い深いブラック
-    secondary: "#161b22"    # カード・セクション背景
-    tertiary: "#21262d"     # ホバー・インタラクティブ要素
+    primary:   "#0d1117"
+    secondary: "#161b22"
+    tertiary:  "#21262d"
   accent:
-    primary: "#58a6ff"      # ブルー（リンク・強調）
-    secondary: "#3fb950"    # グリーン（成功・ライブ表示）
-    highlight: "#f78166"    # オレンジレッド（警告・バッジ）
-    purple: "#bc8cff"       # パープル（タグ・ラベル）
+    primary:   "#58a6ff"
+    secondary: "#3fb950"
+    highlight: "#f78166"
+    purple:    "#bc8cff"
   text:
-    primary: "#e6edf3"      # メインテキスト（明るいグレー）
-    secondary: "#8b949e"    # サブテキスト・説明文
-    muted: "#484f58"        # プレースホルダー・非活性
+    primary:   "#e6edf3"
+    secondary: "#8b949e"
+    muted:     "#484f58"
   border:
-    default: "#30363d"      # 通常のボーダー
-    hover: "#58a6ff"        # ホバー時ボーダー
+    default:   "#30363d"
+    hover:     "#58a6ff"
 
 typography:
-  font_stack: "'Inter', 'Segoe UI', system-ui, sans-serif"
-  mono_stack: "'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace"
+  font_stack:  "'Inter', 'Segoe UI', system-ui, sans-serif"
+  mono_stack:  "'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace"
   scale:
-    hero: "clamp(2.8rem, 8vw, 5.5rem)"
-    h2: "clamp(1.6rem, 3.5vw, 2.4rem)"
-    h3: "1.1rem"
-    body: "0.9rem"
+    hero:  "clamp(2.8rem, 8vw, 5.5rem)"
+    h2:    "clamp(1.6rem, 3.5vw, 2.4rem)"
+    h3:    "1.1rem"
+    body:  "0.9rem"
     small: "0.78rem"
-    code: "0.82rem"
-  weight:
-    bold: 700
-    semibold: 600
-    normal: 400
-  letter_spacing:
-    tight: "-0.03em"
-    normal: "0"
-    wide: "0.08em"
+    code:  "0.82rem"
 
 spacing:
   section_padding: "5rem 2rem"
-  card_padding: "1.25rem 1.5rem"
-  gap_grid: "1rem"
+  card_padding:    "1.25rem 1.5rem"
+  gap_grid:        "1rem"
 
 effects:
   border_radius:
-    card: "8px"
+    card:   "8px"
     button: "6px"
-    badge: "4px"
-    pill: "99px"
-  transitions: "all 0.15s ease"
-  hover_lift: "translateY(-2px)"
-  glow_accent: "0 0 0 3px rgba(88, 166, 255, 0.1)"
-  card_shadow: "0 1px 3px rgba(0,0,0,0.3)"
+    badge:  "4px"
+    pill:   "99px"
+  transitions:  "all 0.15s ease"
+  hover_lift:   "translateY(-2px)"
+  glow_accent:  "0 0 0 3px rgba(88, 166, 255, 0.1)"
+  card_shadow:  "0 1px 3px rgba(0,0,0,0.3)"
 
-components:
-  nav:
-    style: "fixed, blur backdrop, bottom border"
-    bg: "rgba(13,17,23,0.85)"
-    blur: "blur(12px)"
-  hero:
-    style: "centered, gradient text on dark, minimal noise"
-    badge: "pill shape, border + dim bg"
-  cards:
-    style: "flat dark, subtle border, accent border on hover"
-    no_rounded_corners_on_accent_bar: true
-  buttons:
-    primary: "solid accent blue, subtle glow on hover"
-    ghost: "transparent, border, no fill"
-  code_blocks:
-    style: "dark terminal style, monospace font, dim background"
-    border: "left accent bar OR full border"
-  tags:
-    style: "small pill, dim bg, colored text per category"
+# ── T3. 実績画像仕様 ──────────────────────────────────────────
+images:
+  folder:         "image/"
+  naming_rule:    "kebab-case（例: hero2.svg, bg-pattern.svg, project-pipeline.jpg）"
+  recommended_ratio: "16:9 または 4:3"
+  required_attrs:
+    - "alt（説明的なテキスト）"
+    - "loading=lazy（ファーストビュー外）"
+    - "width / height（CLS 対策）"
+    - "aspect-ratio CSS（高さ固定より推奨）"
+  optimization:
+    format:    "WebP 推奨（JPEG フォールバック）"
+    max_size:  "500KB 以下"
+    note:      "photo1.jpg / photo2.jpg は WebP 変換推奨"

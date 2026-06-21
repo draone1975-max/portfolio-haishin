@@ -202,11 +202,12 @@ hr.div { border: none; border-top: 1px solid var(--border); }
 .skill-table .desc { font-size: var(--fs-sm); color: var(--muted); }
 .skill-table .tag-cell { text-align: right; white-space: nowrap; }
 
-/* ── projects ── */
+/* ── gallery / projects — T3: aspect-ratio で CLS 対策 ── */
 .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px,100%), 1fr)); gap: 1.25rem; }
 .proj-card { border: 1px solid var(--border); border-radius: var(--r-card); background: var(--bg2); overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); box-shadow: var(--shadow-card); }
 .proj-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
-.proj-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3rem; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+/* [T3] height 固定 → aspect-ratio: 16/9 に変更（CLS 改善） */
+.proj-thumb { aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-size: 3rem; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
 .proj-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: .85; transition: opacity .2s; }
 .proj-card:hover .proj-thumb img { opacity: 1; }
 .proj-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
@@ -221,6 +222,18 @@ hr.div { border: none; border-top: 1px solid var(--border); }
 .contact-box { border: 1px solid var(--border); border-radius: var(--r-card); background: var(--bg2); padding: 2.5rem; text-align: center; }
 .contact-box p { color: var(--muted); font-size: var(--fs-body); margin-bottom: 1.5rem; }
 .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── [T2-1] YAML 規定順 gallery→about→pipeline→agents→skills→contact ── */
+.page-sections { display: flex; flex-direction: column; }
+/* 各 wrap に区切り線を付与（hr の代替） */
+.page-sections .wrap { border-top: 1px solid var(--border); }
+/* flexbox order でセクション順を制御 */
+#gallery  { order: 1; }
+#about    { order: 2; }
+#pipeline { order: 3; }
+#agents   { order: 4; }
+#skills   { order: 5; }
+#contact  { order: 6; }
 
 /* ── footer ── */
 footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2.5rem 2rem; text-align: center; }
@@ -285,12 +298,11 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
 <nav>
   <div class="nav-logo"><span class="hl">&lt;</span>Hirahara<span class="hl">/&gt;</span></div>
   <!-- [H-1] <nav> ネスト → <div role="navigation"> -->
+  <!-- [T2-1] YAML 規定順: gallery を about より前に -->
   <div class="nav-links" role="navigation" aria-label="メインナビゲーション">
+    <a href="#gallery">Works</a>
     <a href="#about">About</a>
-    <a href="#pipeline">Pipeline</a>
-    <a href="#agents">Agents</a>
     <a href="#skills">Skills</a>
-    <a href="#projects">Works</a>
     <a href="#contact">Contact</a>
   </div>
   <!-- [A11Y-1] ハンバーガーボタン -->
@@ -300,11 +312,9 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
 
 <!-- [A11Y-1] モバイルドロワー -->
 <div class="nav-drawer" id="nav-drawer" role="navigation" aria-label="モバイルナビゲーション">
+  <a href="#gallery">Works</a>
   <a href="#about">About</a>
-  <a href="#pipeline">Pipeline</a>
-  <a href="#agents">Agents</a>
   <a href="#skills">Skills</a>
-  <a href="#projects">Works</a>
   <a href="#contact">Contact</a>
 </div>
 
@@ -342,10 +352,13 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
   <div class="rib-item" role="listitem"><div class="rib-num">2</div><div class="rib-label">Repos</div></div>
 </div>
 
+<!-- [T2-1] flex order でセクション順を制御するラッパー -->
+<main class="page-sections">
+
 <!-- ABOUT -->
 <section class="wrap" id="about" aria-labelledby="about-heading">
   <!-- [READ-2] aria-hidden でスクリーンリーダーから除外 -->
-  <p class="sec-num" aria-hidden="true">// 00 — ABOUT ME</p>
+  <p class="sec-num" aria-hidden="true">// 02 — ABOUT ME</p>
   <h2 class="sec-title" id="about-heading">About</h2>
   <p class="sec-desc">はじめまして。AIと一緒にものづくりをしている個人開発者です。</p>
   <div class="about-grid">
@@ -371,11 +384,10 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
   </div>
 </section>
 
-<hr class="div">
 
 <!-- PIPELINE -->
 <section class="wrap" id="pipeline" aria-labelledby="pipeline-heading">
-  <p class="sec-num" aria-hidden="true">// 01 — HIGHLIGHT</p>
+  <p class="sec-num" aria-hidden="true">// 03 — PIPELINE</p>
   <h2 class="sec-title" id="pipeline-heading">build-and-review パイプライン</h2>
   <p class="sec-desc">3つの専門 SubAgent を順次連携して Python コードを自動改善・検証する実践ワークフロー</p>
   <div class="terminal" role="region" aria-label="パイプライン実行例">
@@ -415,11 +427,10 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
   </div>
 </section>
 
-<hr class="div">
 
 <!-- AGENTS -->
 <section class="wrap" id="agents" aria-labelledby="agents-heading">
-  <p class="sec-num" aria-hidden="true">// 02 — SUBAGENTS</p>
+  <p class="sec-num" aria-hidden="true">// 04 — SUBAGENTS</p>
   <h2 class="sec-title" id="agents-heading">7つのカスタム SubAgents</h2>
   <p class="sec-desc">.claude/agents/ に配置。@エージェント名で呼び出し、または Claude が自動判断して委譲</p>
   <div class="agent-grid">
@@ -454,11 +465,10 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
   </div>
 </section>
 
-<hr class="div">
 
 <!-- SKILLS -->
 <section class="wrap" id="skills" aria-labelledby="skills-heading">
-  <p class="sec-num" aria-hidden="true">// 03 — SKILLS</p>
+  <p class="sec-num" aria-hidden="true">// 05 — SKILLS</p>
   <h2 class="sec-title" id="skills-heading">11のカスタム Skills</h2>
   <p class="sec-desc">.claude/commands/ に配置。/コマンド名 または自然文で自動発動</p>
   <div class="skill-table-wrap">
@@ -489,12 +499,11 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
   </div>
 </section>
 
-<hr class="div">
 
-<!-- PROJECTS -->
-<section class="wrap" id="projects" aria-labelledby="projects-heading">
-  <p class="sec-num" aria-hidden="true">// 04 — FEATURED WORKS</p>
-  <h2 class="sec-title" id="projects-heading">Featured Projects</h2>
+<!-- GALLERY — [T2-1] id を gallery に変更、YAML 規定準拠 -->
+<section class="wrap" id="gallery" aria-labelledby="gallery-heading">
+  <p class="sec-num" aria-hidden="true">// 01 — GALLERY</p>
+  <h2 class="sec-title" id="gallery-heading">Featured Projects</h2>
   <p class="sec-desc">このセッションで構築・GitHub に公開したプロジェクト</p>
   <div class="proj-grid">
     <div class="proj-card">
@@ -540,11 +549,10 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
   </div>
 </section>
 
-<hr class="div">
 
 <!-- CONTACT -->
 <section class="wrap" id="contact" aria-labelledby="contact-heading">
-  <p class="sec-num" aria-hidden="true">// 05 — CONTACT</p>
+  <p class="sec-num" aria-hidden="true">// 06 — CONTACT</p>
   <h2 class="sec-title" id="contact-heading">Contact</h2>
   <p class="sec-desc">お気軽にどうぞ</p>
   <div class="contact-box">
@@ -555,6 +563,8 @@ footer { border-top: 1px solid var(--border); background: var(--bg2); padding: 2
     </div>
   </div>
 </section>
+
+</main><!-- /page-sections -->
 
 <!-- FOOTER -->
 <footer>
